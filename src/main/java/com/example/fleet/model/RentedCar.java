@@ -8,14 +8,14 @@ public class RentedCar {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int rendtedCar_id;
 
-    //foreign key - Rental(rental_id)
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "rental_id", referencedColumnName = "rental_id")
+    //foreign key - Rental(id)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "rental_id", referencedColumnName = "id")
     private Rental rental;
 
-    //foreign key - Car(car_id)
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "car_id", referencedColumnName = "car_id")
+    //foreign key - Car(id)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "car_id", referencedColumnName = "id")
     private Car car;
 
     public RentedCar() {

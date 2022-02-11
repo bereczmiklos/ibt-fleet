@@ -5,17 +5,19 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Table(name = "rental")
 public class Rental {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int rent_id;
+    private int id;
 
-    //foreign key - Client(client_id)
+    //foreign key - Client(id)
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "client_id", referencedColumnName = "client_id")
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Client client;
 
-    @OneToMany(mappedBy = "rental", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    //REVERSE NAVIGATION PROPERTY?
+    @OneToMany(mappedBy = "rental", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     private List<RentedCar> rentedCars;
 
     private Date rent_begin;
@@ -25,7 +27,7 @@ public class Rental {
     }
 
     public int getRent_id() {
-        return rent_id;
+        return id;
     }
 
     public Client getClient() {
@@ -45,7 +47,7 @@ public class Rental {
     }
 
     public void setRent_id(int rent_id) {
-        this.rent_id = rent_id;
+        this.id = rent_id;
     }
 
     public void setClient(Client client) {
@@ -67,7 +69,7 @@ public class Rental {
     @Override
     public String toString() {
         return "Rental{" +
-                "rent_id=" + rent_id +
+                "rent_id=" + id +
                 ", client=" + client +
                 ", rentedCars=" + rentedCars +
                 ", rent_begin=" + rent_begin +

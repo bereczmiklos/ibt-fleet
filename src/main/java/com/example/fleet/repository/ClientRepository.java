@@ -8,7 +8,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface ClientRepository extends CrudRepository<Client, Integer> {
 
-    List<Client> findAllClient();
-
     Client findById(int id);
 }

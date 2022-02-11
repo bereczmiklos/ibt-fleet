@@ -27,17 +27,18 @@ public class FleetApplication {
 	public CommandLineRunner demo(CustomerRepository repository, CarRepository carRepository,
 								  BrandRepository brandRepository) {
 		return (args) -> {
-
+			log.info("---------------------------START---------------------------");
 			List<Car> fordList = new ArrayList<>();
 			List<Car> mercedesList = new ArrayList<>();
 			List<Car> toyotaList = new ArrayList<>();
 			List<Car> volkswagenList = new ArrayList<>();
+			log.info("1.BLANK LIST CREATED");
 
 			Brand ford = new Brand(fordList,BrandName.FORD);
 			Brand mercedes = new Brand(mercedesList,BrandName.MERCEDES);
 			Brand toyota = new Brand(toyotaList,BrandName.TOYOTA);
 			Brand volkswagen = new Brand(volkswagenList,BrandName.VOLKSWAGEN);
-
+			log.info("2.BRANDS CREATED");
 
 			Car f1 = new Car(ford, CarCategory.CAR, "Fiesta", "AAA-123", CarFuelType.PETROL,
 					149990);
@@ -49,6 +50,7 @@ public class FleetApplication {
 					219990);
 			Car f5 = new Car(ford, CarCategory.MINIBUS, "Tourneo", "AAA-101", CarFuelType.DIESEL,
 					259900);
+
 			fordList.add(f1);
 			fordList.add(f2);
 			fordList.add(f3);
@@ -59,6 +61,7 @@ public class FleetApplication {
 					319990);
 			Car m2 = new Car(mercedes, CarCategory.CAR, "E200D", "BBB-456", CarFuelType.DIESEL,
 					379990);
+
 			mercedesList.add(m1);
 			mercedesList.add(m2);
 
@@ -68,6 +71,7 @@ public class FleetApplication {
 					149990);
 			Car t3 = new Car(toyota, CarCategory.MINIBUS, "HiAce", "CCC-789", CarFuelType.DIESEL,
 					199900);
+
 			toyotaList.add(t1);
 			toyotaList.add(t2);
 			toyotaList.add(t3);
@@ -78,6 +82,7 @@ public class FleetApplication {
 					239000);
 			Car v3 = new Car(volkswagen, CarCategory.VAN, "Transporter-E", "DDD-789",
 					CarFuelType.ELECTRIC,239000);
+
 			volkswagenList.add(v1);
 			volkswagenList.add(v2);
 			volkswagenList.add(v3);
@@ -86,66 +91,23 @@ public class FleetApplication {
 			brandRepository.save(mercedes);
 			brandRepository.save(toyota);
 			brandRepository.save(volkswagen);
+			log.info("3.BRANDS ADDED TO DB");
 
-			for (Car c: fordList) { carRepository.save(c); }
-			for (Car c: mercedesList) { carRepository.save(c); }
-			for (Car c: toyotaList) { carRepository.save(c); }
-			for (Car c: volkswagenList) { carRepository.save(c); }
+			for (Car c: fordList) { carRepository.save(c); ford.setCars(fordList); }
+			for (Car c: mercedesList) { carRepository.save(c); mercedes.setCars(mercedesList);}
+			for (Car c: toyotaList) { carRepository.save(c); toyota.setCars(toyotaList);}
+			for (Car c: volkswagenList) { carRepository.save(c); volkswagen.setCars(volkswagenList);}
+			log.info("4.CARS ADDED TO DB");
 
-			//fetch all car
-			log.info("Cars found with findAll():");
-			log.info("-------------------------------");
+			log.info(">>>CARS");
 			for (Car car : carRepository.findAll()) {
-				log.info(car.toString());
-			}
-			log.info("");
+				log.info(car.toString());}
 
+			log.info(">>>BRANDS");
+			for (Brand brand : brandRepository.findAll()) {
+				log.info(brand.toString());}
 
-
-
-
-
-
-/*
-			// save a few customers
-			repository.save(new Customer("Jack", "Bauer", 20000));
-			repository.save(new Customer("Chloe", "O'Brian",10000));
-			repository.save(new Customer("Kim", "Bauer", 13000));
-			repository.save(new Customer("David", "Palmer", 12000));
-			repository.save(new Customer("Michelle", "Dessler", 19000));
-
-			// fetch all customers
-			log.info("Customers found with findAll():");
-			log.info("-------------------------------");
-			for (Customer customer : repository.findAll()) {
-				log.info(customer.toString());
-			}
-			log.info("");
-
-			// fetch an individual customer by ID
-			Customer customer = repository.findById(1L);
-			log.info("Customer found with findById(1L):");
-			log.info("--------------------------------");
-			log.info(customer.toString());
-			log.info("");
-
-			// fetch customers by last name
-			log.info("Customer found with findByLastName('Bauer'):");
-			log.info("--------------------------------------------");
-			repository.findByLastName("Bauer").forEach(bauer -> {
-				log.info(bauer.toString());
-			});
-			// for (Customer bauer : repository.findByLastName("Bauer")) {
-			//  log.info(bauer.toString());
-			// }
-			log.info("");
-
-			// fetch a customer by salary
-			log.info("Customer by salary(19000):");
-			log.info("--------------------------------------------");
-			Customer c = repository.findBySalary(19000);
-			log.info(c.toString());
-*/
+			log.info("-------------------------------END-------------------------------");
 		};
 	}
 

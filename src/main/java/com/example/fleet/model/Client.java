@@ -4,13 +4,15 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "client")
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int client_id;
+    private int id;
     private String name;
 
-    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    //REVERSE NAVIGATION PROPERTY?
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     private List<Rental> rentals;
 
     public Client() {
@@ -22,7 +24,7 @@ public class Client {
     }
 
     public int getClient_id() {
-        return client_id;
+        return id;
     }
 
     public String getName() {
@@ -36,7 +38,7 @@ public class Client {
     @Override
     public String toString() {
         return "Client{" +
-                "client_id=" + client_id +
+                "client_id=" + id +
                 ", name='" + name + '\'' +
                 ", rentals=" + rentals +
                 '}';

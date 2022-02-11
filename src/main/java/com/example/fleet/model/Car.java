@@ -3,13 +3,15 @@ package com.example.fleet.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "car")
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int car_id;
+    private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "brand_id")
+    //foreign key: Brand(id)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "brand_id", referencedColumnName="id")
     private Brand brand;
 
     private CarCategory category;
@@ -31,7 +33,7 @@ public class Car {
     }
 
     public int getCar_id() {
-        return car_id;
+        return id;
     }
 
     public Brand getBrand() {
@@ -61,8 +63,7 @@ public class Car {
     @Override
     public String toString() {
         return "Car{" +
-                "car_id=" + car_id +
-                ", brand=" + brand +
+                "car_id=" + id +
                 ", category=" + category +
                 ", type='" + type + '\'' +
                 ", plate='" + plate + '\'' +

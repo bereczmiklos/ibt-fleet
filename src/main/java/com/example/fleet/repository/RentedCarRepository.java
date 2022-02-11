@@ -8,7 +8,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface RentedCarRepository extends CrudRepository<RentedCar, Integer> {
 
-    List<RentedCar> findAllRentedCar();
-
     RentedCar findById(int id);
 }

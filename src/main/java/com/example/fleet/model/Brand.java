@@ -4,17 +4,21 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "brand")
 public class Brand {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int brand_id;
+    private int id;
 
-    @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    //foreign key: Car(id)
+    @OneToMany(mappedBy = "brand",
+            cascade = CascadeType.ALL,
+            fetch=FetchType.LAZY)
     private List<Car> cars;
 
     private BrandName name;
 
-    public Brand(List<Car> cars, String ford) {
+    public Brand() {
     }
 
     public Brand(List<Car> cars, BrandName name) {
@@ -23,7 +27,7 @@ public class Brand {
     }
 
     public int getBrand_id() {
-        return brand_id;
+        return id;
     }
 
     public List<Car> getCars() {
@@ -34,11 +38,18 @@ public class Brand {
         return name;
     }
 
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
+    }
+
+    public void setName(BrandName name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "Brand{" +
-                "brand_id=" + brand_id +
-                ", cars=" + cars +
+                "id=" + id +
                 ", name=" + name +
                 '}';
     }
