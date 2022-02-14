@@ -20,29 +20,13 @@ public class FilterController {
     FilterService filterService;
 
     @GetMapping("/filter")
-    public String filterCarsByBrand(@RequestParam(name = "brandfilter") Brand brand,
+    public String filterCars(@RequestParam(name = "brandfilter") Brand brand,
+                                    @RequestParam(name = "categoryfilter") CarCategory category,
+                                    @RequestParam(name = "fuelfilter") CarFuelType fuelType,
                                     Model model){
 
-        List<Car> filteredByBrand = filterService.filterByBrand(brand);
-        model.addAttribute("filteredbybrands",filteredByBrand);
-        return null;
-    }
-
-    @GetMapping("/filter")
-    public String filterCarsByCategory(@RequestParam(name = "categoryfilter") CarCategory category,
-                                       Model model){
-
-        List<Car> filterByCategory = filterService.filterByCategory(category);
-        model.addAttribute("filteredbycategory",filterByCategory);
-        return null;
-    }
-
-    @GetMapping("/filter")
-    public String filterCarsByFuel(@RequestParam(name = "fuelfilter") CarFuelType fuelType,
-                                   Model model){
-
-        List<Car> filteredByFuel = filterService.filterByFuelType(fuelType);
-        model.addAttribute("filteredbyfuel",filteredByFuel);
+        List<Car> filteredCars = filterService.filterCars(brand, category, fuelType);
+        model.addAttribute("filteredcars",filteredCars);
         return null;
     }
 }

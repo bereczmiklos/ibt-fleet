@@ -13,14 +13,14 @@ public class LoginController {
 
     @PostMapping("/login")
     public String login(@RequestParam(name = "username") String userName, Model model){
-
         model.addAttribute(RentController.CLIENT_ID, "1");
+        //TODO:
         return "main";
     }
 
     @GetMapping("/logout")
     public String logout(Model model){
         model.addAttribute(RentController.CLIENT_ID,null);
-        return null;
+        return "index";
     }
 }

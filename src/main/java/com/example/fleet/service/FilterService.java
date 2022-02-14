@@ -16,24 +16,25 @@ import java.util.List;
 public class FilterService {
     private CarRepository carRepository;
 
-    public List<Car> filterByBrand(Brand brand){
-        if (brand != null){
+    /**
+     * Filter by only one parameter, default: findAll
+     * @param brand
+     * @param category
+     * @param fuelType
+     * @return  list of filtered cars by one parameter
+     */
+    //TODO: multiple filter parameter
+    public List<Car> filterCars(Brand brand, CarCategory category, CarFuelType fuelType){
+        if (brand != null)
+        {
             return carRepository.findByBrandName(brand.getName());
         }
-        else return new ArrayList<Car>();
-    }
-
-    public List<Car> filterByCategory(CarCategory category){
-        if (category != null){
+        else if (category != null){
             return carRepository.findByCategory(category);
         }
-        else return new ArrayList<Car>();
-    }
-
-    public List<Car> filterByFuelType(CarFuelType fuel){
-        if (fuel != null){
-            return  carRepository.findByFuel(fuel);
+        else if (fuelType != null){
+            return carRepository.findByFuel(fuelType);
         }
-        else return new ArrayList<Car>();
+        else return carRepository.findAll();
     }
 }
