@@ -11,9 +11,7 @@ public class Brand {
     private int id;
 
     //foreign key: Car(id)
-    @OneToMany(mappedBy = "brand",
-            cascade = CascadeType.ALL,
-            fetch=FetchType.LAZY)
+    @OneToMany(mappedBy = "brand")
     private List<Car> cars;
 
     private BrandName name;

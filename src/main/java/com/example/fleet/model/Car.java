@@ -10,7 +10,7 @@ public class Car {
     private int id;
 
     //foreign key: Brand(id)
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "brand_id", referencedColumnName="id")
     private Brand brand;
 

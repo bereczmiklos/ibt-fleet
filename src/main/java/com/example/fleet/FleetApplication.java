@@ -1,10 +1,7 @@
 package com.example.fleet;
 
 import com.example.fleet.model.*;
-import com.example.fleet.repository.BrandRepository;
-import com.example.fleet.repository.CarRepository;
-import com.example.fleet.repository.ClientRepository;
-import com.example.fleet.repository.CustomerRepository;
+import com.example.fleet.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -24,22 +21,25 @@ public class FleetApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(CustomerRepository repository, CarRepository carRepository,
-								  BrandRepository brandRepository) {
+	public CommandLineRunner demo(CarRepository carRepository,
+								  BrandRepository brandRepository,
+								  ClientRepository clientRepository,
+								  RentalRepository rentalRepository,
+								  RentedCarRepository rentedCarRepository) {
 		return (args) -> {
-			log.info("---------------------------START---------------------------");
+
 			List<Car> fordList = new ArrayList<>();
 			List<Car> mercedesList = new ArrayList<>();
 			List<Car> toyotaList = new ArrayList<>();
 			List<Car> volkswagenList = new ArrayList<>();
-			log.info("1.BLANK LIST CREATED");
 
+			//BRAND TABLE:
 			Brand ford = new Brand(fordList,BrandName.FORD);
 			Brand mercedes = new Brand(mercedesList,BrandName.MERCEDES);
 			Brand toyota = new Brand(toyotaList,BrandName.TOYOTA);
 			Brand volkswagen = new Brand(volkswagenList,BrandName.VOLKSWAGEN);
-			log.info("2.BRANDS CREATED");
 
+			//CAR TABLE:
 			Car f1 = new Car(ford, CarCategory.CAR, "Fiesta", "AAA-123", CarFuelType.PETROL,
 					149990);
 			Car f2 = new Car(ford, CarCategory.CAR, "Puma", "AAA-234", CarFuelType.PETROL,
@@ -87,26 +87,44 @@ public class FleetApplication {
 			volkswagenList.add(v2);
 			volkswagenList.add(v3);
 
+			//CLIENT DB
+			List<Rental> emptyRentalList = new ArrayList<>();
+			Client c1 = new Client("Kovács és társa bt", emptyRentalList);
+			Client c2 = new Client("Pizza Hut", emptyRentalList);
+			Client c3 = new Client("Food Panda", emptyRentalList);
+
+			//RENTAL DB
+			Rental r1 = new Rental();
+
+			//RENTEDCAR DB
+			RentedCar rc1 = new RentedCar();
+
+			//SAVE TO DB
 			brandRepository.save(ford);
 			brandRepository.save(mercedes);
 			brandRepository.save(toyota);
 			brandRepository.save(volkswagen);
-			log.info("3.BRANDS ADDED TO DB");
 
 			for (Car c: fordList) { carRepository.save(c); ford.setCars(fordList); }
 			for (Car c: mercedesList) { carRepository.save(c); mercedes.setCars(mercedesList);}
 			for (Car c: toyotaList) { carRepository.save(c); toyota.setCars(toyotaList);}
 			for (Car c: volkswagenList) { carRepository.save(c); volkswagen.setCars(volkswagenList);}
-			log.info("4.CARS ADDED TO DB");
 
-			log.info(">>>CARS");
-			for (Car car : carRepository.findAll()) {
-				log.info(car.toString());}
+			clientRepository.save(c1);
+			clientRepository.save(c2);
+			clientRepository.save(c3);
 
-			log.info(">>>BRANDS");
-			for (Brand brand : brandRepository.findAll()) {
-				log.info(brand.toString());}
+			rentalRepository.save(r1);
 
+			rentedCarRepository.save(rc1);
+
+			log.info("------------------------------START------------------------------");
+			log.info(">>DB CREATED");
+			log.info("BRANDS TABLE ADDED - " + brandRepository.findAll().size() + " ROWS" );
+			log.info("CARS TABLE ADDED - " + carRepository.findAll().size() + " ROWS");
+			log.info("CLIENT TABLE ADDED - " + clientRepository.findAll().size() + " ROWS");
+			log.info("RENTAL TABLE ADDED - " + rentalRepository.findAll().size() + " ROWS");
+			log.info("RENTALCAR TABLE ADDED - " + rentedCarRepository.findAll().size() + " ROWS");
 			log.info("-------------------------------END-------------------------------");
 		};
 	}
