@@ -6,23 +6,23 @@ import javax.persistence.*;
 public class RentedCar {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int rendtedCar_id;
+    private int Id;
 
     //foreign key - Rental(id)
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "rental_id", referencedColumnName = "id")
     private Rental rental;
 
     //foreign key - Car(id)
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "car_id", referencedColumnName = "id")
     private Car car;
 
     public RentedCar() {
     }
 
-    public int getRendtedCar_id() {
-        return rendtedCar_id;
+    public int getId() {
+        return Id;
     }
 
     public Rental getRental() {
@@ -33,8 +33,8 @@ public class RentedCar {
         return car;
     }
 
-    public void setRendtedCar_id(int rendtedCar_id) {
-        this.rendtedCar_id = rendtedCar_id;
+    public void setId(int rendtedCar_id) {
+        this.Id = rendtedCar_id;
     }
 
     public void setRental(Rental rental) {
@@ -48,9 +48,9 @@ public class RentedCar {
     @Override
     public String toString() {
         return "RentedCar{" +
-                "rendtedCar_id=" + rendtedCar_id +
-                ", rental=" + rental +
-                ", car=" + car +
+                "rendtedCar_id=" + Id +
+                ", rental_id=" + rental.getId() +
+                ", car_id=" + car.getId() +
                 '}';
     }
 }

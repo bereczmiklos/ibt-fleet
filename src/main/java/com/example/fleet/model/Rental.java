@@ -17,7 +17,7 @@ public class Rental {
     private Client client;
 
     //REVERSE NAVIGATION PROPERTY?
-    @OneToMany(mappedBy = "rental", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "rental")
     private List<RentedCar> rentedCars;
 
     private Date rent_begin;
@@ -26,7 +26,7 @@ public class Rental {
     public Rental() {
     }
 
-    public int getRent_id() {
+    public int getId() {
         return id;
     }
 
@@ -46,10 +46,6 @@ public class Rental {
         return rent_end;
     }
 
-    public void setRent_id(int rent_id) {
-        this.id = rent_id;
-    }
-
     public void setClient(Client client) {
         this.client = client;
     }
@@ -64,6 +60,10 @@ public class Rental {
 
     public void setRent_end(Date rent_end) {
         this.rent_end = rent_end;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
