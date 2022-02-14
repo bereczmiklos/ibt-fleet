@@ -24,7 +24,7 @@ public class Brand {
         this.name = name;
     }
 
-    public int getBrand_id() {
+    public int getId() {
         return id;
     }
 

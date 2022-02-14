@@ -32,7 +32,7 @@ public class Car {
         this.price = price;
     }
 
-    public int getCar_id() {
+    public int getId() {
         return id;
     }
 

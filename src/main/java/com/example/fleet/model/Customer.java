@@ -15,7 +15,7 @@ public class Customer {
     private String lastName;
     private int salary;
 
-    protected Customer() {}
+    public Customer() {}
 
     public Customer(String firstName, String lastName, int salary) {
         this.firstName = firstName;
