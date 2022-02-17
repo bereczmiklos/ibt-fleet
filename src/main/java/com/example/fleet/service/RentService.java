@@ -1,5 +1,6 @@
 package com.example.fleet.service;
 
+import com.example.fleet.FleetApplication;
 import com.example.fleet.model.Car;
 import com.example.fleet.model.Client;
 import com.example.fleet.model.Rental;
@@ -8,7 +9,8 @@ import com.example.fleet.repository.CarRepository;
 import com.example.fleet.repository.ClientRepository;
 import com.example.fleet.repository.RentalRepository;
 import com.example.fleet.repository.RentedCarRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -16,7 +18,7 @@ import java.util.List;
 
 @Service
 public class RentService{
-
+    private static final Logger log = LoggerFactory.getLogger(FleetApplication.class);
     private RentalRepository rentalRepository;
     private ClientRepository clientRepository;
     private RentedCarRepository rentedCarRepository;
@@ -38,6 +40,7 @@ public class RentService{
         newRent.setRent_begin(start);
         newRent.setRent_end(end);
         rentalRepository.save(newRent);
+        log.info(">> add new rent - " + clientId);
     }
 
     private void newRentedCar(Rental rent, String plate){
@@ -45,6 +48,7 @@ public class RentService{
         rentedCar.setRental(rent);
         rentedCar.setCar(carRepository.findByPlate(plate));
         rentedCarRepository.save(rentedCar);
+        log.info(">> add new rented car - " + plate);
     }
 
     /**
@@ -55,6 +59,7 @@ public class RentService{
         //Az összes RentedCar rekord törlése ahol a bérlésId azonos a törlendő bérlés id-val:
         deleteRentedCar(rentId);
         rentalRepository.delete(rentalRepository.findById(rentId));
+        log.info(">>delete rent - " + rentId);
     }
 
     private void deleteRentedCar(int rentId){
@@ -63,5 +68,6 @@ public class RentService{
                 rentedCarRepository.delete(rc);
             }
         }
+        log.info(">>delete rented car - " + rentId);
     }
 }

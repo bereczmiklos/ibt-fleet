@@ -19,8 +19,6 @@ public class LoginController {
     @PostMapping("/login")
     public String login(@RequestParam(name = "emailaddress") String email, Model model){
 
-        //model.addAttribute(RentController.CLIENT_ID, "1");
-
         Client clienLogined = loginService.clientLogin(email);
         if (clienLogined != null){
             model.addAttribute("clientlogined", clienLogined);

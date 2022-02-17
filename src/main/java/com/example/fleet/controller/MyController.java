@@ -26,8 +26,6 @@ public class MyController {
             customerName = customer.getFirstName() + " " + customer.getLastName();
         }
 
-
-
         model.addAttribute("name", customerName);
         return "greeting";
     }
