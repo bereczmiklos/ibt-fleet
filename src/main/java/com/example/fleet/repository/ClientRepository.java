@@ -11,4 +11,6 @@ public interface ClientRepository extends CrudRepository<Client, Integer> {
     List<Client> findAll();
 
     Client findById(int id);
+
+    Client findByEmailAddress(String email);
 }

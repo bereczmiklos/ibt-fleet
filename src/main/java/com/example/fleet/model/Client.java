@@ -10,6 +10,7 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
+    private String emailAddress;
 
     //REVERSE NAVIGATION PROPERTY?
     @OneToMany(mappedBy = "client")
@@ -18,8 +19,9 @@ public class Client {
     public Client() {
     }
 
-    public Client(String name, List<Rental> rentals) {
+    public Client(String name, String email, List<Rental> rentals) {
         this.name = name;
+        this.emailAddress = email;
         this.rentals = rentals;
     }
 
@@ -33,6 +35,10 @@ public class Client {
 
     public List<Rental> getRentals() {
         return rentals;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
     }
 
     @Override

@@ -89,9 +89,9 @@ public class FleetApplication {
 
 			//CLIENT DB
 			List<Rental> emptyRentalList = new ArrayList<>();
-			Client c1 = new Client("Kovács és társa bt", emptyRentalList);
-			Client c2 = new Client("Pizza Hut", emptyRentalList);
-			Client c3 = new Client("Food Panda", emptyRentalList);
+			Client c1 = new Client("Kovács és társa bt","kovacsbt@kovacsbt.hu", emptyRentalList);
+			Client c2 = new Client("Pizza Hut", "pizzahut@ph.hu",emptyRentalList);
+			Client c3 = new Client("Food Panda", "foodpanda@gmail.com",emptyRentalList);
 
 			//RENTAL DB
 			Rental r1 = new Rental();
@@ -125,7 +125,6 @@ public class FleetApplication {
 			log.info("CLIENT TABLE ADDED - " + clientRepository.findAll().size() + " ROWS");
 			log.info("RENTAL TABLE ADDED - " + rentalRepository.findAll().size() + " ROWS");
 			log.info("RENTALCAR TABLE ADDED - " + rentedCarRepository.findAll().size() + " ROWS");
-			log.info("-------------------------------END-------------------------------");
 		};
 	}
 
