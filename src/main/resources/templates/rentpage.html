@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Szűrés</title>
+</head>
+<body>
+<form action="filter">
+    <table>
+        <tr>
+            <td>Márka</td>
+            <td>Kategória</td>
+            <td>Üzemanyag</td>
+        </tr>
+        <tr>
+            <td><select name="brandfilter" id="brand-select">
+                <option value="" selected="true">Összes</option>
+                <option value="MERCEDES">Mercedes</option>
+                <option value="FORD">Ford</option>
+                <option value="TOYOTA">Toyota</option>
+                <option value="VOLKSWAGEN">Volkswagen</option>
+            </select></td>
+            <td><select name="categoryfilter" id="category-select">
+                <option value="" selected="true">Összes</option>
+                <option value="CAR">Személyautó</option>
+                <option value="VAN">Kisteher</option>
+                <option value="MINIBUS">Kisbusz</option>
+            </select></td>
+            <td><select name="fuelfilter" id="fuel-select">
+                <option value="" selected="true">Mindegy</option>
+                <option value="PETROL">Benzin</option>
+                <option value="DIESEL">Dízel</option>
+                <option value="ELECTRIC">Elektromos</option>
+            </select></td>
+        </tr>
+    </table>
+    <input type="submit" name="searchSubmit" value="Keresés">
+</body>
+</html>

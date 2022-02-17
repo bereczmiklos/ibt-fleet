@@ -25,6 +25,11 @@ public class RentController {
                      Model model){
         int clientId = Integer.parseInt((String) model.getAttribute(CLIENT_ID));
         rentService.newRent(clientId, plates, startDate, endDate);
-        return null;
+        return "rentpage";
+    }
+
+    @GetMapping("/myrents")
+    public String myRents(Model model){
+        return "myrentspage";
     }
 }
