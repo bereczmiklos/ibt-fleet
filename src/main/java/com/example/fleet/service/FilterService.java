@@ -1,12 +1,11 @@
 package com.example.fleet.service;
 
-import com.example.fleet.model.Brand;
-import com.example.fleet.model.Car;
-import com.example.fleet.model.CarCategory;
-import com.example.fleet.model.CarFuelType;
-import com.example.fleet.repository.BrandRepository;
+import com.example.fleet.FleetApplication;
+import com.example.fleet.model.*;
 import com.example.fleet.repository.CarRepository;
-import com.example.fleet.repository.RentedCarRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,26 +13,30 @@ import java.util.List;
 
 @Service
 public class FilterService {
+
+    private static final Logger log = LoggerFactory.getLogger(FleetApplication.class);
+
+    @Autowired
     private CarRepository carRepository;
 
     /**
      * Filter by only one parameter, default: findAll
-     * @param brand
+     * @param brandName
      * @param category
      * @param fuelType
      * @return  list of filtered cars by one parameter
      */
     //TODO: multiple filter parameter
-    public List<Car> filterCars(Brand brand, CarCategory category, CarFuelType fuelType){
-        if (brand != null)
+    public List<Car> filterCars(String brandName, CarCategory category, CarFuelType fuelType){
+        if (brandName != null)
         {
-            return carRepository.findByBrandName(brand.getName());
+            return carRepository.findByBrandName(BrandName.valueOf(brandName));
         }
         else if (category != null){
-            return carRepository.findByCategory(category);
+            return carRepository.findByCategory((CarCategory) category);
         }
         else if (fuelType != null){
-            return carRepository.findByFuel(fuelType);
+            return carRepository.findByFuel((CarFuelType) fuelType);
         }
         else return carRepository.findAll();
     }

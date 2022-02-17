@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -20,13 +21,25 @@ public class FilterController {
     FilterService filterService;
 
     @GetMapping("/filter")
-    public String filterCars(@RequestParam(name = "brandfilter") Brand brand,
-                                    @RequestParam(name = "categoryfilter") CarCategory category,
-                                    @RequestParam(name = "fuelfilter") CarFuelType fuelType,
+    public String filterCars(@RequestParam(name = "brandfilter", required=false) String brandName,
+                                    @RequestParam(name = "categoryfilter", required=false) CarCategory category,
+                                    @RequestParam(name = "fuelfilter", required=false) CarFuelType fuelType,
                                     Model model){
 
-        List<Car> filteredCars = filterService.filterCars(brand, category, fuelType);
-        model.addAttribute("filteredcars",filteredCars);
-        return null;
+        List<Car> filteredCars = filterService.filterCars(brandName, category, fuelType);
+        if (filteredCars != null){
+            model.addAttribute("filteredcars",filteredCars);
+        }
+        return "rentpage";
+    }
+
+    @PostMapping("/filtered")
+    public String filteredCarsProcess(@RequestParam(name="filteredcars") List<Car> filteredCars,
+                                      Model model){
+        if (filteredCars != null)
+        {
+            model.addAttribute("filteredCars",filteredCars);
+        }
+        return "rentpage";
     }
 }
