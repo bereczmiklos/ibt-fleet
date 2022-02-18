@@ -28,8 +28,9 @@ public class FilterController {
     public String filterCars(@RequestParam(name = "brandfilter", required=false) String brandName,
                                     @RequestParam(name = "categoryfilter", required=false) String category,
                                     @RequestParam(name = "fuelfilter", required=false) String fuelType,
+                                    @RequestParam(name = "cartocart", required=false) String plate,
                                     Model model){
-
+        //Filtering
         if (brandName == null && category == null && fuelType == null)
         {
             unFilteredCars = filterService.UnfilteredCars();
@@ -39,17 +40,18 @@ public class FilterController {
             filteredCars = filterService.filterCars(brandName, category, fuelType);
             model.addAttribute(FILTEREDCARS, filteredCars);
         }
-        return FILTERPAGE;
-    }
 
-    @GetMapping("/addtocart")
-    public String addToCart(@RequestParam(name = "cartocart") String carPlate,
-                            Model model){
+        //Booking
+        //Ha a plate nem null, kiválasztott autók száma maradjon,frissüljön a listázás (elérhetőség állapota)
 
-        rentService.carAddToCart(carPlate);
+        model.addAttribute("brandfilter", brandName);
+        model.addAttribute("categoryfilter", category);
+        model.addAttribute("fuelfilter", fuelType);
 
-        model.addAttribute("countofcarsincart", rentService.getCountOfCarsInCart());
-
+        if (plate != null){
+            rentService.carAddToCart(plate);
+            model.addAttribute("countofcarsincart", rentService.getCountOfCarsInCart());
+        }
         return FILTERPAGE;
     }
 }

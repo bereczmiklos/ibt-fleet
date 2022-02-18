@@ -36,7 +36,7 @@
         </tr>
     </table>
 </form>
-<form method="get" action="filter">
+<form action="filter">
     <table border="1">
         <tr><td>Márka</td><td>Típus</td><td>Kategória</td><td>Üzemanyag</td><td>Ár</td><td>Elérhető</td></tr>
         <tr th:each="car: ${filteredcars}">
@@ -46,14 +46,28 @@
             <td th:text="${car.fuel}" />
             <td th:text="${car.price}" />
             <td>
-                <span th:if="${car.avaible} == true" /> <a th:href="@{/addtocart(cartocart=${car.plate})}">foglalás</a>
-                <span th:if="${car.avaible} == false" th:text="nem" />
+                <span th:if="${car.avaible == true}" th:text="igen"/>
+                <span th:if="${car.avaible == false}" th:text="nem"/>
+            </td>
+            <td>
+                <span th:if="${car.avaible} == true">
+                    <a th:href="@{/filter(cartocart=${car.plate},
+                        brandfilter=${brandfilter},
+                        categoryfilter=${categoryfilter},
+                        fuelfilter=${fuelfilter})}">foglalás</a>
+                </span>
             </td>
         </tr>
     </table>
 </form>
 <form action="rent">
-    <h3>Kiválasztott járművek száma: <span th:text="${countofcarsincart}"/></h3>
+    <table>
+        <td><h3>Kiválasztott járművek száma:</h3></td>
+        <td>
+            <span th:if="${countofcarsincart} == null" th:text="0"/>
+            <span th:unless="${countofcarsincart} == 0" th:text="${countofcarsincart}"/>
+        </td>
+    </table>
     <input type="submit" value="Véglegesítés">
 </form>
 </tbody>
