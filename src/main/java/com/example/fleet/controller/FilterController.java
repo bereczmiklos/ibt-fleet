@@ -30,16 +30,6 @@ public class FilterController {
         if (filteredCars != null){
             model.addAttribute("filteredcars",filteredCars);
         }
-        return "rentpage";
-    }
-
-    @PostMapping("/filtered")
-    public String filteredCarsProcess(@RequestParam(name="filteredcars") List<Car> filteredCars,
-                                      Model model){
-        if (filteredCars != null)
-        {
-            model.addAttribute("filteredCars",filteredCars);
-        }
-        return "rentpage";
+        return "filterpage";
     }
 }
