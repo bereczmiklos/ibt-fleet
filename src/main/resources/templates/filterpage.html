@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
     <title>Szűrés</title>
 </head>
-<body>
+<tbody>
 <form action="filter">
     <table>
         <tr>
-            <td>Márka</td>
-            <td>Kategória</td>
-            <td>Üzemanyag</td>
+            <td>Márka</td><td>Kategória</td><td>Üzemanyag</td>
         </tr>
         <tr>
             <td><select name="brandfilter" id="brand-select">
@@ -32,8 +30,23 @@
                 <option value="DIESEL">Dízel</option>
                 <option value="ELECTRIC">Elektromos</option>
             </select></td>
+            <td>
+                <input type="submit" value="Szűrés">
+            </td>
         </tr>
     </table>
-    <input type="submit" name="searchSubmit" value="Keresés">
-</body>
+</form>
+<form method="get" action="filter">
+    <table border="1">
+        <tr><td>Márka</td><td>Típus</td><td>Kategória</td><td>Üzemanyag</td><td>Ár</td></tr>
+        <tr th:each="car: ${filteredcars}">
+            <td th:text= ${car.brand.name} />
+            <td th:text="${car.type}" />
+            <td th:text="${car.category}" />
+            <td th:text="${car.fuel}" />
+            <td th:text="${car.price}" />
+        </tr>
+    </table>
+</form>
+</tbody>
 </html>
