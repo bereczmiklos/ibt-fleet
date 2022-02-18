@@ -27,16 +27,16 @@ public class FilterService {
      * @return  list of filtered cars by one parameter
      */
     //TODO: multiple filter parameter
-    public List<Car> filterCars(String brandName, CarCategory category, CarFuelType fuelType){
+    public List<Car> filterCars(String brandName, String category, String fuelType){
         if (brandName != null)
         {
             return carRepository.findByBrandName(BrandName.valueOf(brandName));
         }
         else if (category != null){
-            return carRepository.findByCategory((CarCategory) category);
+            return carRepository.findByCategory(CarCategory.valueOf(category));
         }
         else if (fuelType != null){
-            return carRepository.findByFuel((CarFuelType) fuelType);
+            return carRepository.findByFuel(CarFuelType.valueOf(fuelType));
         }
         else return carRepository.findAll();
     }

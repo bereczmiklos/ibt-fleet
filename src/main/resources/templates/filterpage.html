@@ -38,13 +38,17 @@
 </form>
 <form method="get" action="filter">
     <table border="1">
-        <tr><td>Márka</td><td>Típus</td><td>Kategória</td><td>Üzemanyag</td><td>Ár</td></tr>
+        <tr><td>Márka</td><td>Típus</td><td>Kategória</td><td>Üzemanyag</td><td>Ár</td><td>Elérhető</td></tr>
         <tr th:each="car: ${filteredcars}">
             <td th:text= ${car.brand.name} />
             <td th:text="${car.type}" />
             <td th:text="${car.category}" />
             <td th:text="${car.fuel}" />
             <td th:text="${car.price}" />
+            <td>
+                <span th:if="${car.avaible} == true" /> <a th:href="@{/addtocart(cartocart=car.plate)}">foglalás</a>
+                <span th:if="${car.avaible} == false" th:text="nem" />
+            </td>
         </tr>
     </table>
 </form>

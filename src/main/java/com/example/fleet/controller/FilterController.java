@@ -22,14 +22,24 @@ public class FilterController {
 
     @GetMapping("/filter")
     public String filterCars(@RequestParam(name = "brandfilter", required=false) String brandName,
-                                    @RequestParam(name = "categoryfilter", required=false) CarCategory category,
-                                    @RequestParam(name = "fuelfilter", required=false) CarFuelType fuelType,
+                                    @RequestParam(name = "categoryfilter", required=false) String category,
+                                    @RequestParam(name = "fuelfilter", required=false) String fuelType,
                                     Model model){
 
         List<Car> filteredCars = filterService.filterCars(brandName, category, fuelType);
         if (filteredCars != null){
             model.addAttribute("filteredcars",filteredCars);
         }
+        return "filterpage";
+    }
+
+    @GetMapping("/addtocart")
+    public String addToCart(@RequestParam(name = "cartocart") String carPlate,
+                            Model model){
+        //TODO: count of cars in the cart
+        //TODO: handle the car parameter(shoppingCart.Add, model.SetAttribute,
+        // rentedCars.Add, car.Avaible = false)
+
         return "filterpage";
     }
 }
