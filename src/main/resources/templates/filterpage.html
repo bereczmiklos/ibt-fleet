@@ -46,11 +46,15 @@
             <td th:text="${car.fuel}" />
             <td th:text="${car.price}" />
             <td>
-                <span th:if="${car.avaible} == true" /> <a th:href="@{/addtocart(cartocart=car.plate)}">foglalás</a>
+                <span th:if="${car.avaible} == true" /> <a th:href="@{/addtocart(cartocart=${car.plate})}">foglalás</a>
                 <span th:if="${car.avaible} == false" th:text="nem" />
             </td>
         </tr>
     </table>
+</form>
+<form action="rent">
+    <h3>Kiválasztott járművek száma: <span th:text="${countofcarsincart}"/></h3>
+    <input type="submit" value="Véglegesítés">
 </form>
 </tbody>
 </html>

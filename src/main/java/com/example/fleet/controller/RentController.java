@@ -14,6 +14,7 @@ import java.util.List;
 public class RentController {
 
     public static final String CLIENT_ID = "clientId";
+    public static final String MYRENTSPAGE = "myrentspage";
 
     @Autowired
     private RentService rentService;
@@ -24,12 +25,12 @@ public class RentController {
                      @RequestParam(name="end_date") Date endDate,
                      Model model){
         int clientId = Integer.parseInt((String) model.getAttribute(CLIENT_ID));
-        rentService.newRent(clientId, plates, startDate, endDate);
+        rentService.newRent(clientId, startDate, endDate);
         return "filterpage";
     }
 
     @GetMapping("/myrents")
     public String myRents(Model model){
-        return "myrentspage";
+        return MYRENTSPAGE;
     }
 }

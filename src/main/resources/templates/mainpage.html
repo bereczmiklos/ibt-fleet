@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>Főoldal</title>
 </head>
-<body>
-<p th:text="'bejelentkezve: ' + ${clientname}" />
-<a href="filter">Kereső</a><br>
-<a href="myrents">Bérléseim</a>
-</body>
+<tbody>
+<font size="+1" style="bold">Bejelentkezve: </font><span th:text="${clientname}" /></br>
+<h1>Aktív bérléseid:</h1></br>
+<a href="filter">Új bérlés</a></br>
+</tbody>
 </html>
