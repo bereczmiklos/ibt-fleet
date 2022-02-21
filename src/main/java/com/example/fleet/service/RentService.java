@@ -19,8 +19,11 @@ public class RentService{
 
     private static final Logger log = LoggerFactory.getLogger(RentService.class);
 
+    @Autowired
     private RentalRepository rentalRepository;
+    @Autowired
     private ClientRepository clientRepository;
+    @Autowired
     private RentedCarRepository rentedCarRepository;
     @Autowired
     private CarRepository carRepository;
@@ -84,14 +87,14 @@ public class RentService{
         Rental newRent = new Rental();
         newRent.setClient(clientRepository.findById(clientId));
 
-        for (Car s: BookedCars.getInstance()) {
-            newRentedCar(newRent, s);
-        }
-
         BookedCars.getInstance().clear();
         newRent.setRent_begin(start);
         newRent.setRent_end(end);
         rentalRepository.save(newRent);
+
+        for (Car s: BookedCars.getInstance()) {
+            newRentedCar(newRent, s);
+        }
     }
 
     /**
