@@ -62,8 +62,8 @@
     <table>
         <td><h3>Kiválasztott járművek száma:</h3></td>
         <td>
-            <span th:if="${countofcarsincart} == null" th:text="0"/>
-            <span th:unless="${countofcarsincart} == 0" th:text="${countofcarsincart}"/>
+            <span th:if="${session.countofcarsincart} == null" th:text="0"/>
+            <span th:unless="${session.countofcarsincart} == 0" th:text="${session.countofcarsincart}"/>
         </td>
     </table>
     <input type="submit" value="Véglegesítés">

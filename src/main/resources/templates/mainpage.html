@@ -5,13 +5,13 @@
     <title>Főoldal</title>
 </head>
 <tbody>
-<font size="+1" style="bold">Bejelentkezve: </font><span th:text="${clientname}" /></br>
+<font size="+1" style="bold">Bejelentkezve: </font><span th:text="${session.clientname}" /></br>
 <form action="logout">
     <input type="submit" value="kijelentkezés">
 </form>
 <h1>Aktív bérléseid:</h1>
 <table border="1">
-    <tr th:each="rent: ${clientsrental}">
+    <tr th:each="rent: ${session.clientsrental}">
         <td th:text= ${rent} />
     </tr>
 </table>

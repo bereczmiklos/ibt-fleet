@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.lang.annotation.Retention;
 
 @Controller
@@ -17,12 +18,12 @@ public class LoginController {
     private LoginService loginService;
 
     @PostMapping("/login")
-    public String login(@RequestParam(name = "emailaddress") String email, Model model){
+    public String login(@RequestParam(name = "emailaddress") String email, HttpSession session){
 
         Client clienLogined = loginService.clientLogin(email);
         if (clienLogined != null){
-            model.addAttribute("clientlogined", clienLogined);
-            model.addAttribute("clientname", clienLogined.getName());
+            session.setAttribute("clientlogined", clienLogined);
+            session.setAttribute("clientname", clienLogined.getName());
             return "mainpage";
         }
         else return "invalid";

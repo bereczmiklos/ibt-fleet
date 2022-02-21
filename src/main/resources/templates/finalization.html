@@ -9,7 +9,7 @@
 <form action="rent">
     <table border="1">
         <tr><td>Márka</td><td>Típus</td><td>Kategória</td><td>Üzemanyag</td><td>Ár</td><td></td></tr>
-        <tr th:each="car: ${bookedcars}">
+        <tr th:each="car: ${session.bookedcars}">
             <td th:text= ${car.brand.name} />
             <td th:text="${car.type}" />
             <td th:text="${car.category}" />
