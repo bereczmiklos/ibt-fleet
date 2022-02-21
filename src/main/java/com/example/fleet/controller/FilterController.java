@@ -49,9 +49,7 @@ public class FilterController {
         }
 
         //Booking:
-        //TODO: keep the number of selected cars, refresh the available cars list
-
-        //modelhez adjuk, hogy megmaradjon ha ujratöltődik az oldal egy foglalás után
+        //vissza tesszük a session scope-ba
         model.addAttribute("brandfilter", brandName);
         model.addAttribute("categoryfilter", category);
         model.addAttribute("fuelfilter", fuelType);
@@ -63,10 +61,10 @@ public class FilterController {
             //modelhez adjuk:
             //bookedcars: foglalt autók listája
             //countofcarsincart: foglalt autók darabszáma
-            model.addAttribute("bookedcars", rentService.getCarsInCart());
-            model.addAttribute("countofcarsincart", rentService.getCountOfCarsInCart());
+            session.setAttribute("bookedcars", rentService.getCarsInCart());
+            session.setAttribute("countofcarsincart", rentService.getCountOfCarsInCart());
 
-            log.info("booked cars count after filtering: " + model.getAttribute(
+            log.info("booked cars count after filtering: " + session.getAttribute(
                     "countofcarsincart"));
         }
         return FILTERPAGE;
