@@ -20,7 +20,8 @@ import java.util.List;
 
 @Service
 public class RentService{
-    private static final Logger log = LoggerFactory.getLogger(FleetApplication.class);
+
+    private static final Logger log = LoggerFactory.getLogger(RentService.class);
 
     private RentalRepository rentalRepository;
     private ClientRepository clientRepository;
@@ -46,6 +47,10 @@ public class RentService{
         return carsInCart.size();
     }
 
+    public List<Car> getCarsInCart()
+    {
+        return  carsInCart;
+    }
     /**
      * In case of a new rent, create and save a new entity to the db
      * @param clientId  the id of a client to rent
@@ -62,7 +67,6 @@ public class RentService{
         newRent.setRent_begin(start);
         newRent.setRent_end(end);
         rentalRepository.save(newRent);
-        log.info(">> add new rent - " + clientId);
     }
 
     private void newRentedCar(Rental rent, Car car){
@@ -70,7 +74,7 @@ public class RentService{
         rentedCar.setRental(rent);
         rentedCar.setCar(carRepository.findByPlate(car.getPlate()));
         rentedCarRepository.save(rentedCar);
-        log.info(">> add new rented car - " + car.getPlate());
+        log.info("add new rented car - car plate: " + car.getPlate());
     }
 
     /**
@@ -81,7 +85,6 @@ public class RentService{
         //Az összes RentedCar rekord törlése ahol a bérlésId azonos a törlendő bérlés id-val:
         deleteRentedCar(rentId);
         rentalRepository.delete(rentalRepository.findById(rentId));
-        log.info(">>delete rent - " + rentId);
     }
 
     private void deleteRentedCar(int rentId){
@@ -90,6 +93,6 @@ public class RentService{
                 rentedCarRepository.delete(rc);
             }
         }
-        log.info(">>delete rented car - " + rentId);
+        log.info("delete rented car - rent id: " + rentId);
     }
 }

@@ -21,4 +21,5 @@ public interface CarRepository extends CrudRepository<Car, Integer> {
     List<Car> findByCategory(CarCategory category);
 
     List<Car> findByFuel(CarFuelType fuel);
+
 }

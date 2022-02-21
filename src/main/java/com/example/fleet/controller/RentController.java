@@ -1,6 +1,9 @@
 package com.example.fleet.controller;
 
+import com.example.fleet.FleetApplication;
 import com.example.fleet.service.RentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +15,8 @@ import java.util.List;
 
 @Controller
 public class RentController {
+
+    private static final Logger log = LoggerFactory.getLogger(RentController.class);
 
     public static final String CLIENT_ID = "clientId";
     public static final String MYRENTSPAGE = "myrentspage";
@@ -25,8 +30,18 @@ public class RentController {
                      @RequestParam(name="end_date") Date endDate,
                      Model model){
         int clientId = Integer.parseInt((String) model.getAttribute(CLIENT_ID));
+        log.info("add new rent - client id: " + clientId +
+                ", start date: " + startDate +
+                ", end date: " + endDate);
         rentService.newRent(clientId, startDate, endDate);
         return "filterpage";
+    }
+
+    @GetMapping("/finalrent")
+    public String rentFinalization(Model model)
+    {
+        log.info("booked cars: " + model.getAttribute("bookedcars"));
+        return "finalization";
     }
 
     @GetMapping("/myrents")

@@ -33,8 +33,8 @@ public class RentedCar {
         return car;
     }
 
-    public void setId(int rendtedCar_id) {
-        this.Id = rendtedCar_id;
+    public void setId(int id) {
+        this.Id = id;
     }
 
     public void setRental(Rental rental) {
