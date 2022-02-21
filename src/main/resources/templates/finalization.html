@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Véglegesítés</title>
+</head>
+<tbody>
+<h1>Kiválasztott járművek:</h1>
+<form action="rent">
+    <table border="1">
+        <tr><td>Márka</td><td>Típus</td><td>Kategória</td><td>Üzemanyag</td><td>Ár</td><td></td></tr>
+        <tr th:each="car: ${bookedcars}">
+            <td th:text= ${car.brand.name} />
+            <td th:text="${car.type}" />
+            <td th:text="${car.category}" />
+            <td th:text="${car.fuel}" />
+            <td th:text="${car.price}" />
+            <td>
+                <a th:href="@{/deletecarfromcart}">törlés</a>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <table>
+        <tr><td>Bérlés kezdete:</td><td><input type="date" name="start_date"></td></tr>
+        <tr><td>Bérlés vége:</td><td><input type="date" name="end_date"></td></tr>
+        <tr><td><input type="submit" value="véglegesít"></td></tr>
+    </table>
+</form>
+</tbody>
+</html>

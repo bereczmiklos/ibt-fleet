@@ -3,6 +3,7 @@ package com.example.fleet.service;
 import com.example.fleet.FleetApplication;
 import com.example.fleet.model.*;
 import com.example.fleet.repository.CarRepository;
+import com.example.fleet.repository.RentedCarRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,22 @@ public class FilterService {
 
     @Autowired
     private CarRepository carRepository;
+    @Autowired
+    private RentedCarRepository rentedCarRepository;
+
+    /**
+     * Returns: true, if the car is in RentedCar table
+     *          false, if not
+     * @param car
+     * @return
+     */
+    public boolean carIsBooked(Car car)
+    {
+        if (rentedCarRepository.findByCar(car) == null)
+            return false;
+        else
+            return true;
+    }
 
     /**
      * Filter by only one parameter, default: findAll
@@ -46,6 +63,10 @@ public class FilterService {
         }
     }
 
+    /**
+     * Returns: unfiltered cars
+     * @return
+     */
     public List<Car> getUnfilteredCars()
     {
         return carRepository.findAll();

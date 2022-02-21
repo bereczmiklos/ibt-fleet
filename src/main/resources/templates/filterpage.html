@@ -36,6 +36,7 @@
         </tr>
     </table>
 </form>
+<br>
 <form action="filter">
     <table border="1">
         <tr><td>Márka</td><td>Típus</td><td>Kategória</td><td>Üzemanyag</td><td>Ár</td><td>Elérhető</td></tr>
@@ -46,16 +47,13 @@
             <td th:text="${car.fuel}" />
             <td th:text="${car.price}" />
             <td>
-                <span th:if="${car.avaible == true}" th:text="igen"/>
-                <span th:if="${car.avaible == false}" th:text="nem"/>
+
             </td>
             <td>
-                <span th:if="${car.avaible} == true">
-                    <a th:href="@{/filter(cartocart=${car.plate},
+                <a th:href="@{/filter(cartocart=${car.plate},
                         brandfilter=${brandfilter},
                         categoryfilter=${categoryfilter},
-                        fuelfilter=${fuelfilter})}">foglalás</a>
-                </span>
+                        fuelfilter=${fuelfilter})}">kosárba</a>
             </td>
         </tr>
     </table>

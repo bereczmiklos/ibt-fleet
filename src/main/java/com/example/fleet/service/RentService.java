@@ -1,10 +1,6 @@
 package com.example.fleet.service;
 
-import com.example.fleet.FleetApplication;
-import com.example.fleet.model.Car;
-import com.example.fleet.model.Client;
-import com.example.fleet.model.Rental;
-import com.example.fleet.model.RentedCar;
+import com.example.fleet.model.*;
 import com.example.fleet.repository.CarRepository;
 import com.example.fleet.repository.ClientRepository;
 import com.example.fleet.repository.RentalRepository;
@@ -29,28 +25,55 @@ public class RentService{
     @Autowired
     private CarRepository carRepository;
 
-    private List<Car> carsInCart = new ArrayList<>();
-
+    /**
+     * Add cars by plate numbers to BookedCars instance
+     * @param plate
+     */
     public void carAddToCart(String plate){
         Car car = carRepository.findByPlate(plate);
-        car.setAvaible(false);
-        carsInCart.add(car);
+        BookedCars.getInstance().add(car); //BookedCars singleton listájához adjuk az autót
+        log.info("add car to bookedcars entity: " + plate);
     }
 
+    /**
+     * Delete cars from BookedCars instance
+     * @param plate
+     */
     public void carDeleteFromCart(String plate){
         Car car = carRepository.findByPlate(plate);
-        car.setAvaible(true);
-        carsInCart.remove(car);
+        BookedCars.getInstance().remove(car);
     }
 
+    /**
+     * Returns: count of booked cars
+     * @return
+     */
     public int getCountOfCarsInCart(){
-        return carsInCart.size();
+        return BookedCars.getInstance().size();
     }
 
+    /**
+     * Returns: booked cars from BookedCars instance
+     * @return
+     */
     public List<Car> getCarsInCart()
     {
-        return  carsInCart;
+        return BookedCars.getInstance();
     }
+
+    /**
+     * Returns: the booked cars plate numbers
+     * @return
+     */
+    public List<String> getBookedCarsPlates()
+    {
+        List<String> plates = new ArrayList<>();
+        for (Car car : getCarsInCart()) {
+            plates.add(car.getPlate());
+        }
+        return plates;
+    }
+
     /**
      * In case of a new rent, create and save a new entity to the db
      * @param clientId  the id of a client to rent
@@ -60,21 +83,15 @@ public class RentService{
     public void newRent(int clientId, Date start, Date end){
         Rental newRent = new Rental();
         newRent.setClient(clientRepository.findById(clientId));
-        for (Car s: carsInCart) {
+
+        for (Car s: BookedCars.getInstance()) {
             newRentedCar(newRent, s);
         }
-        carsInCart.clear();
+
+        BookedCars.getInstance().clear();
         newRent.setRent_begin(start);
         newRent.setRent_end(end);
         rentalRepository.save(newRent);
-    }
-
-    private void newRentedCar(Rental rent, Car car){
-        RentedCar rentedCar = new RentedCar();
-        rentedCar.setRental(rent);
-        rentedCar.setCar(carRepository.findByPlate(car.getPlate()));
-        rentedCarRepository.save(rentedCar);
-        log.info("add new rented car - car plate: " + car.getPlate());
     }
 
     /**
@@ -85,6 +102,25 @@ public class RentService{
         //Az összes RentedCar rekord törlése ahol a bérlésId azonos a törlendő bérlés id-val:
         deleteRentedCar(rentId);
         rentalRepository.delete(rentalRepository.findById(rentId));
+    }
+
+    /**
+     * Returns: all rentals find by client id
+     * @param clientId
+     * @return
+     */
+    public List<Rental> getAllRentsByClient(int clientId)
+    {
+        Client client = clientRepository.findById(clientId);
+        return rentalRepository.findByClient(client);
+    }
+
+    private void newRentedCar(Rental rent, Car car){
+        RentedCar rentedCar = new RentedCar();
+        rentedCar.setRental(rent);
+        rentedCar.setCar(carRepository.findByPlate(car.getPlate()));
+        rentedCarRepository.save(rentedCar);
+        log.info("add new rented car - car plate: " + car.getPlate());
     }
 
     private void deleteRentedCar(int rentId){
