@@ -20,8 +20,8 @@ public class Rental {
     @OneToMany(mappedBy = "rental")
     private List<RentedCar> rentedCars;
 
-    private Date rent_begin;
-    private Date rent_end;
+    private Date begin;
+    private Date end;
 
     public Rental() {
     }
@@ -38,12 +38,12 @@ public class Rental {
         return rentedCars;
     }
 
-    public Date getRent_begin() {
-        return rent_begin;
+    public Date getBegin() {
+        return begin;
     }
 
-    public Date getRent_end() {
-        return rent_end;
+    public Date getEnd() {
+        return end;
     }
 
     public void setClient(Client client) {
@@ -55,11 +55,11 @@ public class Rental {
     }
 
     public void setRent_begin(Date rent_begin) {
-        this.rent_begin = rent_begin;
+        this.begin = rent_begin;
     }
 
     public void setRent_end(Date rent_end) {
-        this.rent_end = rent_end;
+        this.end = rent_end;
     }
 
     public void setId(int id) {
@@ -72,8 +72,8 @@ public class Rental {
                 "rent_id=" + id +
                 ", client=" + client +
                 ", rentedCars=" + rentedCars +
-                ", rent_begin=" + rent_begin +
-                ", rent_end=" + rent_end +
+                ", rent_begin=" + begin +
+                ", rent_end=" + end +
                 '}';
     }
 }

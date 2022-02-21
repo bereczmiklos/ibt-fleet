@@ -6,7 +6,15 @@
 </head>
 <tbody>
 <font size="+1" style="bold">Bejelentkezve: </font><span th:text="${clientname}" /></br>
-<h1>Aktív bérléseid:</h1></br>
+<form action="logout">
+    <input type="submit" value="kijelentkezés">
+</form>
+<h1>Aktív bérléseid:</h1>
+<table border="1">
+    <tr th:each="rent: ${clientsrental}">
+        <td th:text= ${rent} />
+    </tr>
+</table>
 <a href="filter">Új bérlés</a></br>
 </tbody>
 </html>
