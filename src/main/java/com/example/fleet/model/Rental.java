@@ -70,8 +70,6 @@ public class Rental {
     public String toString() {
         return "Rental{" +
                 "rent_id=" + id +
-                ", client=" + client +
-                ", rentedCars=" + rentedCars +
                 ", rent_begin=" + begin +
                 ", rent_end=" + end +
                 '}';
