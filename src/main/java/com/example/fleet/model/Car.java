@@ -19,7 +19,6 @@ public class Car {
     private String plate;
     private CarFuelType fuel;
     private int price;
-    private boolean avaible = true;
 
     public Car() {
     }
@@ -59,14 +58,6 @@ public class Car {
 
     public int getPrice() {
         return price;
-    }
-
-    public boolean isAvaible() {
-        return avaible;
-    }
-
-    public void setAvaible(boolean avaible) {
-        this.avaible = avaible;
     }
 
     @Override
