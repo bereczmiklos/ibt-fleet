@@ -119,12 +119,12 @@ public class FleetApplication {
 			rentedCarRepository.save(rc1);
 
 			log.info("------------------------------START------------------------------");
-			log.info(">>DB CREATED");
-			log.info("BRANDS TABLE ADDED - " + brandRepository.findAll().size() + " ROWS" );
-			log.info("CARS TABLE ADDED - " + carRepository.findAll().size() + " ROWS");
-			log.info("CLIENT TABLE ADDED - " + clientRepository.findAll().size() + " ROWS");
-			log.info("RENTAL TABLE ADDED - " + rentalRepository.findAll().size() + " ROWS");
-			log.info("RENTALCAR TABLE ADDED - " + rentedCarRepository.findAll().size() + " ROWS");
+			log.info("db created: " +
+					"{brands(" + brandRepository.findAll().size() + ")," +
+					"cars(" + carRepository.findAll().size() + ")," +
+					"client(" + clientRepository.findAll().size() + ")," +
+					"rental(" + rentalRepository.findAll().size() + ")," +
+					"rentedcar(" + rentedCarRepository.findAll().size() + ")}");
 		};
 	}
 

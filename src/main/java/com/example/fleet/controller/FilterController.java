@@ -16,7 +16,6 @@ import java.util.List;
 
 @Controller
 public class FilterController {
-    private static final Logger log = LoggerFactory.getLogger(FilterController.class);
 
     public static final String FILTERPAGE = "filterpage";
     public static final String FILTEREDCARS = "filteredcars";
@@ -55,7 +54,6 @@ public class FilterController {
         model.addAttribute("fuelfilter", fuelType);
 
         if (plate != null){
-            log.info("car add to cart: " + plate);
             rentService.carAddToCart(plate);
 
             //modelhez adjuk:
@@ -64,8 +62,6 @@ public class FilterController {
             session.setAttribute("bookedcars", rentService.getCarsInCart());
             session.setAttribute("countofcarsincart", rentService.getCountOfCarsInCart());
 
-            log.info("booked cars count after filtering: " + session.getAttribute(
-                    "countofcarsincart"));
         }
         return FILTERPAGE;
     }

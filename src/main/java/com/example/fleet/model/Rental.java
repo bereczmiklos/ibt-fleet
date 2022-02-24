@@ -54,11 +54,11 @@ public class Rental {
         this.rentedCars = rentedCars;
     }
 
-    public void setRent_begin(Date rent_begin) {
+    public void setBegin(Date rent_begin) {
         this.begin = rent_begin;
     }
 
-    public void setRent_end(Date rent_end) {
+    public void setEnd(Date rent_end) {
         this.end = rent_end;
     }
 
@@ -70,8 +70,9 @@ public class Rental {
     public String toString() {
         return "Rental{" +
                 "rent_id=" + id +
-                ", rent_begin=" + begin +
-                ", rent_end=" + end +
+                ", count of rented cars= " + rentedCars.size() +
+                ", begin=" + begin +
+                ", end=" + end +
                 '}';
     }
 }

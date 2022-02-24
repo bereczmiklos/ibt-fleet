@@ -34,8 +34,9 @@ public class RentService{
      */
     public void carAddToCart(String plate){
         Car car = carRepository.findByPlate(plate);
-        BookedCars.getInstance().add(car); //BookedCars singleton listájához adjuk az autót
-        log.info("add car to bookedcars entity: " + plate);
+        BookedCars.getInstance().add(car);
+        log.info("car added to cart: " + plate +
+                ", cars in cart: " + getCountOfCarsInCart());
     }
 
     /**
@@ -44,7 +45,11 @@ public class RentService{
      */
     public void carDeleteFromCart(String plate){
         Car car = carRepository.findByPlate(plate);
+        //TODO: remove(car) isnt working
         BookedCars.getInstance().remove(car);
+
+        log.info("car deleted from cart: " + plate +
+                ", cars in cart: " + getCountOfCarsInCart());
     }
 
     /**
@@ -87,14 +92,21 @@ public class RentService{
         Rental newRent = new Rental();
         newRent.setClient(clientRepository.findById(clientId));
 
-        BookedCars.getInstance().clear();
-        newRent.setRent_begin(start);
-        newRent.setRent_end(end);
+        newRent.setBegin(start);
+        newRent.setEnd(end);
+        newRent.setRentedCars(new ArrayList<RentedCar>());
         rentalRepository.save(newRent);
 
         for (Car s: BookedCars.getInstance()) {
             newRentedCar(newRent, s);
         }
+
+        log.info("new rent created: {client = " + clientId +
+                ", begin: " + start +
+                ", end: " + end +
+                ", count cars: " + newRent.getRentedCars().size() + "}");
+
+        BookedCars.getInstance().clear();
     }
 
     /**
@@ -105,6 +117,8 @@ public class RentService{
         //Az összes RentedCar rekord törlése ahol a bérlésId azonos a törlendő bérlés id-val:
         deleteRentedCar(rentId);
         rentalRepository.delete(rentalRepository.findById(rentId));
+
+        log.info("new rent deleted: {rent id: "+ rentId + "}");
     }
 
     /**
@@ -122,8 +136,10 @@ public class RentService{
         RentedCar rentedCar = new RentedCar();
         rentedCar.setRental(rent);
         rentedCar.setCar(carRepository.findByPlate(car.getPlate()));
+
+        rent.getRentedCars().add(rentedCar);
+
         rentedCarRepository.save(rentedCar);
-        log.info("add new rented car - car plate: " + car.getPlate());
     }
 
     private void deleteRentedCar(int rentId){
@@ -132,6 +148,5 @@ public class RentService{
                 rentedCarRepository.delete(rc);
             }
         }
-        log.info("delete rented car - rent id: " + rentId);
     }
 }

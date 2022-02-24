@@ -1,5 +1,6 @@
 package com.example.fleet.controller;
 
+import com.example.fleet.model.BookedCars;
 import com.example.fleet.model.Client;
 import com.example.fleet.model.Rental;
 import com.example.fleet.service.RentService;
@@ -20,11 +21,10 @@ import java.util.List;
 @Controller
 public class RentController {
 
-    private static final Logger log = LoggerFactory.getLogger(RentController.class);
-
     public static final String FINALIZATION = "finalization";
     public static final String CLIENT_ID = "clientId";
     public static final String MYRENTSPAGE = "myrentspage";
+    public static final String BOOKEDCARS = "bookedcars";
 
     @Autowired
     private RentService rentService;
@@ -35,50 +35,34 @@ public class RentController {
                      HttpSession session,
                      Model model){
 
-        session.removeAttribute("bookedcars");
+        session.removeAttribute(BOOKEDCARS);
         session.removeAttribute("countofcarsincart");
 
         Client client = (Client)session.getAttribute("clientlogined");
         int clientId = client.getClient_id();
 
-        log.info("add new rent - client id: " + clientId +
-                ", start date: " + startDate +
-                ", end date: " + endDate);
-
-        Date start = new SimpleDateFormat("dd/MM/yyyy").parse(startDate,new ParsePosition(1));
-        Date end = new SimpleDateFormat("dd/MM/yyyy").parse(endDate, new ParsePosition(1));
+        Date start = new SimpleDateFormat("yyyy-mm-dd").parse(startDate,new ParsePosition(1));
+        Date end = new SimpleDateFormat("yyyy-mm-dd").parse(endDate, new ParsePosition(1));
         rentService.newRent(clientId, start, end);
 
-        List<Rental> clientsRentals = rentService.getAllRentsByClient(clientId);
-        session.setAttribute("clientsrental", clientsRentals);
-        log.info("client rentals in session scope: " + clientsRentals.size());
+        session.setAttribute("clientsrental", rentService.getAllRentsByClient(clientId));
+
         return "mainpage";
     }
 
     @GetMapping("/finalrent")
     public String rentFinalization(HttpSession session, Model model)
     {
-        log.info("booked cars count in finalization html: " + session.getAttribute("countofcarsincart"));
-        log.info("booked cars in finalization html: " + session.getAttribute("bookedcars"));
-
-        return "finalization";
-    }
-
-    @GetMapping("/myrents")
-    public String myRents(Model model, HttpSession session){
-        //Ha egy rendelés véglegesítve van, listázzuk ki a főoldalon
-
-        Client client = (Client)session.getAttribute("clientlogined");
-        int clientId = client.getClient_id();
-
-        session.setAttribute("clientsrental", rentService.getAllRentsByClient(clientId));
-        return MYRENTSPAGE;
+        return FINALIZATION;
     }
 
     @GetMapping("/deletecarfromcart")
-    public String deleteCarFromCart()
+    public String deleteCarFromCart(@RequestParam("platetodelete") String plate,HttpSession session)
     {
         //Töröljük az adott autót egy linken keresztül a BookedCars objektumból
+        session.removeAttribute(BOOKEDCARS);
+        rentService.carDeleteFromCart(plate);
+        session.setAttribute(BOOKEDCARS, rentService.getCarsInCart());
         return FINALIZATION;
     }
 }
