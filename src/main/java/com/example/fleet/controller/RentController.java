@@ -22,12 +22,12 @@ import java.util.List;
 public class RentController {
 
     public static final String FINALIZATION = "finalization";
-    public static final String CLIENT_ID = "clientId";
-    public static final String MYRENTSPAGE = "myrentspage";
     public static final String BOOKEDCARS = "bookedcars";
+    public static final String MAINPAGE = "mainpage";
 
     @Autowired
     private RentService rentService;
+    private int clientId;
 
     @GetMapping("/rent")
     public String rent(@RequestParam(name="start_date") String startDate,
@@ -39,7 +39,7 @@ public class RentController {
         session.removeAttribute("countofcarsincart");
 
         Client client = (Client)session.getAttribute("clientlogined");
-        int clientId = client.getClient_id();
+        clientId = client.getClient_id();
 
         Date start = new SimpleDateFormat("yyyy-mm-dd").parse(startDate,new ParsePosition(1));
         Date end = new SimpleDateFormat("yyyy-mm-dd").parse(endDate, new ParsePosition(1));
@@ -47,7 +47,17 @@ public class RentController {
 
         session.setAttribute("clientsrental", rentService.getAllRentsByClient(clientId));
 
-        return "mainpage";
+        return MAINPAGE;
+    }
+
+    @GetMapping("/resignation")
+    public String rentResignation(@RequestParam("resignatedrentid") int rentId,
+                                  HttpSession session){
+
+        rentService.deleteRent(rentId);
+        session.setAttribute("clientsrental", rentService.getAllRentsByClient(clientId));
+
+        return MAINPAGE;
     }
 
     @GetMapping("/finalrent")

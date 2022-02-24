@@ -16,7 +16,7 @@
             <td th:text="${car.fuel}" />
             <td th:text="${car.price}" />
             <td>
-                <a th:href="@{/deletecarfromcart}">törlés</a>
+                <a th:href="@{/deletecarfromcart(platetodelete=${car.plate})}">törlés</a>
             </td>
         </tr>
     </table>

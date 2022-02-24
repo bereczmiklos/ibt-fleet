@@ -21,7 +21,7 @@
             <td th:text= ${rent.begin} />
             <td th:text= ${rent.end} />
             <td>
-                lemond
+                <a th:href="@{/resignation(resignatedrentid=${rent.id})}">lemondás</a>
             </td>
         </tr>
     </table>

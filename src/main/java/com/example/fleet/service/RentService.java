@@ -35,7 +35,7 @@ public class RentService{
     public void carAddToCart(String plate){
         Car car = carRepository.findByPlate(plate);
         BookedCars.getInstance().add(car);
-        log.info("car added to cart: " + plate +
+        log.info("car added to cart: " + car.getId() +
                 ", cars in cart: " + getCountOfCarsInCart());
     }
 
@@ -115,10 +115,12 @@ public class RentService{
      */
     public void deleteRent(int rentId){
         //Az összes RentedCar rekord törlése ahol a bérlésId azonos a törlendő bérlés id-val:
+        log.info("------rented car table: " + rentedCarRepository.findAll().size());
+        log.info("------delete by rentid: " + rentId);
         deleteRentedCar(rentId);
         rentalRepository.delete(rentalRepository.findById(rentId));
 
-        log.info("new rent deleted: {rent id: "+ rentId + "}");
+        log.info("rent deleted: {rent id: "+ rentId + "}");
     }
 
     /**
@@ -140,11 +142,14 @@ public class RentService{
         rent.getRentedCars().add(rentedCar);
 
         rentedCarRepository.save(rentedCar);
+
+        log.info("rented car added: {car id:" + car.getId() +
+                ", rental id: " + rent.getId() + "}");
     }
 
     private void deleteRentedCar(int rentId){
         for(RentedCar rc : rentedCarRepository.findAll()){
-            if (rc.getRental().getId() == rentId){
+            if (rc.getRental() == rentalRepository.findById(rentId)){
                 rentedCarRepository.delete(rc);
             }
         }
