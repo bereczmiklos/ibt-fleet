@@ -10,11 +10,23 @@
     <input type="submit" value="kijelentkezés">
 </form>
 <h1>Aktív bérléseid:</h1>
-<table border="1">
-    <tr th:each="rent: ${session.clientsrental}">
-        <td th:text= ${rent} />
-    </tr>
-</table>
+<span th:if="${session.clientsrental.size} == 0">
+    <h3>jelenleg nincs aktív bérlésed!</h3>
+</span>
+<span th:unless="${session.clientsrental.size} == 0">
+    <table border="1">
+        <tr><td>járművek száma</td><td>kezdete</td><td>vége</td><td>lemondás</td></tr>
+        <tr th:each="rent: ${session.clientsrental}">
+            <td th:text= ${rent.rentedCars.size} />
+            <td th:text= ${rent.begin} />
+            <td th:text= ${rent.end} />
+            <td>
+                lemond
+            </td>
+        </tr>
+    </table>
+</span>
+<br>
 <a href="filter">Új bérlés</a></br>
 </tbody>
 </html>
