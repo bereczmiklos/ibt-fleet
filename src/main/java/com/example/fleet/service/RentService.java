@@ -28,13 +28,15 @@ public class RentService{
     @Autowired
     private CarRepository carRepository;
 
+    private BookedCars bookedCars = new BookedCars();
+
     /**
      * Add cars by plate numbers to BookedCars instance
      * @param plate
      */
     public void carAddToCart(String plate){
         Car car = carRepository.findByPlate(plate);
-        BookedCars.getInstance().add(car);
+        bookedCars.addCar(car);
         log.info("car added to cart: " + car.getId() +
                 ", cars in cart: " + getCountOfCarsInCart());
     }
@@ -45,8 +47,9 @@ public class RentService{
      */
     public void carDeleteFromCart(String plate){
         Car car = carRepository.findByPlate(plate);
-        //TODO: remove(car) isnt working
-        BookedCars.getInstance().remove(car);
+
+        //TODO: remove(car) isn't working
+        bookedCars.removeCar(car);
 
         log.info("car deleted from cart: " + plate +
                 ", cars in cart: " + getCountOfCarsInCart());
@@ -57,7 +60,7 @@ public class RentService{
      * @return
      */
     public int getCountOfCarsInCart(){
-        return BookedCars.getInstance().size();
+        return bookedCars.getCountOfBookedCars();
     }
 
     /**
@@ -66,7 +69,7 @@ public class RentService{
      */
     public List<Car> getCarsInCart()
     {
-        return BookedCars.getInstance();
+        return bookedCars.getBookedCars();
     }
 
     /**
@@ -97,7 +100,7 @@ public class RentService{
         newRent.setRentedCars(new ArrayList<RentedCar>());
         rentalRepository.save(newRent);
 
-        for (Car s: BookedCars.getInstance()) {
+        for (Car s: bookedCars.getBookedCars()) {
             newRentedCar(newRent, s);
         }
 
@@ -106,7 +109,7 @@ public class RentService{
                 ", end: " + end +
                 ", count cars: " + newRent.getRentedCars().size() + "}");
 
-        BookedCars.getInstance().clear();
+        bookedCars.clearBookedCars();
     }
 
     /**
@@ -115,8 +118,6 @@ public class RentService{
      */
     public void deleteRent(int rentId){
         //Az összes RentedCar rekord törlése ahol a bérlésId azonos a törlendő bérlés id-val:
-        log.info("------rented car table: " + rentedCarRepository.findAll().size());
-        log.info("------delete by rentid: " + rentId);
         deleteRentedCar(rentId);
         rentalRepository.delete(rentalRepository.findById(rentId));
 
