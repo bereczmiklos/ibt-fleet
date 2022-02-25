@@ -3,6 +3,7 @@ package com.example.fleet.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name="rented_car")
 public class RentedCar {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -10,12 +11,12 @@ public class RentedCar {
 
     //foreign key - Rental(id)
     @ManyToOne
-    @JoinColumn(name = "rental_id", referencedColumnName = "id")
+    @JoinColumn(name = "rental_id")
     private Rental rental;
 
     //foreign key - Car(id)
     @ManyToOne
-    @JoinColumn(name = "car_id", referencedColumnName = "id")
+    @JoinColumn(name = "car_id")
     private Car car;
 
     public RentedCar() {

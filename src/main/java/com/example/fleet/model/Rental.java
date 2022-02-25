@@ -5,26 +5,27 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "rental")
+@Table(name="rental")
 public class Rental {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     //foreign key - Client(id)
     @ManyToOne
-    @JoinColumn(name = "client_id", referencedColumnName = "id")
+    @JoinColumn(name = "client_id")
     private Client client;
 
     //REVERSE NAVIGATION PROPERTY?
     @OneToMany(mappedBy = "rental")
     private List<RentedCar> rentedCars;
 
+    @Column
     private Date begin;
-    private Date end;
 
-    public Rental() {
-    }
+    @Column
+    private Date end;
 
     public int getId() {
         return id;

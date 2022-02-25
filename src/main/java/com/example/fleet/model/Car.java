@@ -3,7 +3,7 @@ package com.example.fleet.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "car")
+@Table(name="car")
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -11,7 +11,7 @@ public class Car {
 
     //foreign key: Brand(id)
     @ManyToOne
-    @JoinColumn(name = "brand_id", referencedColumnName="id")
+    @JoinColumn(name = "brand_id")
     private Brand brand;
 
     private CarCategory category;
