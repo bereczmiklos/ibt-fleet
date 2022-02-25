@@ -6,14 +6,18 @@
 </head>
 <tbody>
 <h1>Kiválasztott járművek:</h1>
+<span th:if="${session.bookedcars} == null">
+    <h3><a href="/filter">Válassz járművet!</a></h3>
+</span>
+<span th:unless="${session.bookedcars == null}">
 <form action="rent">
-    <table border="1">
-        <tr><td>Márka</td><td>Típus</td><td>Kategória</td><td>Üzemanyag</td><td>Ár</td><td></td></tr>
+    <table cellspacing="3">
+        <tr><th>Márka</th><th>Típus</th><th>Kategória</th><th>Üzemanyag</th><th>Ár</th></tr>
         <tr th:each="car: ${session.bookedcars}">
-            <td th:text= ${car.brand.name} />
-            <td th:text="${car.type}" />
-            <td th:text="${car.category}" />
-            <td th:text="${car.fuel}" />
+            <td th:text= ${car.brand.name.getName} align="center"/>
+            <td th:text="${car.type}" align="center"/>
+            <td th:text="${car.category.getName}" align="center"/>
+            <td th:text="${car.fuel.getName}" align="center"/>
             <td th:text="${car.price}" />
             <td>
                 <a th:href="@{/deletecarfromcart(platetodelete=${car.plate})}">törlés</a>
@@ -21,12 +25,13 @@
         </tr>
     </table>
     <br>
-    <table>
-        <tr><td>Ár:</td><td><span th:text="${session.rentprice}" /></td></tr>
-        <tr><td>Bérlés kezdete:</td><td><input type="date" name="start_date"></td></tr>
-        <tr><td>Bérlés vége:</td><td><input type="date" name="end_date"></td></tr>
-        <tr><td><input type="submit" value="véglegesít"></td></tr>
+    <table cellspacing="2">
+        <tr><td align="center">Ár:</td><td align="center"><span th:text="${session.rentprice}" /> Ft</td></tr>
+        <tr><td align="center">Bérlés kezdete:</td><td><input type="date" name="start_date"></td></tr>
+        <tr><td align="center">Bérlés vége:</td><td><input type="date" name="end_date"></td></tr>
+        <tr><td align="center"><input type="submit" value="véglegesít"></td></tr>
     </table>
 </form>
+</span>
 </tbody>
 </html>

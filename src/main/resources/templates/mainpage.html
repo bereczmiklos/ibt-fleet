@@ -14,10 +14,10 @@
     <h3>jelenleg nincs aktív bérlésed!</h3>
 </span>
 <span th:unless="${session.clientsrental.size} == 0">
-    <table border="1">
-        <tr><td>járművek száma</td><td>kezdete</td><td>vége</td><td>lemondás</td></tr>
+    <table border="1" cellspacing="2">
+        <tr><th>járművek száma</th><th>kezdete</th><th>vége</th><th>lemondás</th></tr>
         <tr th:each="rent: ${session.clientsrental}">
-            <td th:text= ${rent.rentedCars.size} />
+            <td th:text= ${rent.rentedCars.size} align="center"/>
             <td th:text= ${rent.begin} />
             <td th:text= ${rent.end} />
             <td>

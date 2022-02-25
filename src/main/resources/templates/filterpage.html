@@ -38,13 +38,13 @@
 </form>
 <br>
 <form action="filter">
-    <table border="1">
-        <tr><td>Márka</td><td>Típus</td><td>Kategória</td><td>Üzemanyag</td><td>Ár</td><td>Elérhető</td></tr>
+    <table cellspacing="3">
+        <tr><th>Márka</th><th>Típus</th><th>Kategória</th><th>Üzemanyag</th><th>Ár</th><th>Elérhető</th></tr>
         <tr th:each="car: ${filteredcars}">
-            <td th:text= ${car.brand.name} />
-            <td th:text="${car.type}" />
-            <td th:text="${car.category}" />
-            <td th:text="${car.fuel}" />
+            <td th:text= ${car.brand.name.getName} align="center"/>
+            <td th:text="${car.type}" align="center"/>
+            <td th:text="${car.category.getName}" align="center"/>
+            <td th:text="${car.fuel.getName}" align="center"/>
             <td th:text="${car.price}" />
             <td>
             </td>
