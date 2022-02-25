@@ -1,6 +1,5 @@
 package com.example.fleet.service;
 
-import com.example.fleet.FleetApplication;
 import com.example.fleet.model.*;
 import com.example.fleet.repository.CarRepository;
 import com.example.fleet.repository.RentedCarRepository;
@@ -9,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,20 +20,6 @@ public class FilterService {
     private CarRepository carRepository;
     @Autowired
     private RentedCarRepository rentedCarRepository;
-
-    /**
-     * Returns: true, if the car is in RentedCar table
-     *          false, if not
-     * @param car
-     * @return
-     */
-    public boolean carIsBooked(Car car)
-    {
-        if (rentedCarRepository.findByCar(car) == null)
-            return false;
-        else
-            return true;
-    }
 
     /**
      * Filter by only one parameter, default: findAll
@@ -70,5 +56,25 @@ public class FilterService {
     public List<Car> getUnfilteredCars()
     {
         return carRepository.findAll();
+    }
+
+    public List<Car> availableFilter(List<Car> filtered)
+    {
+        List<Car> available = new ArrayList<>();
+
+        for (Car c:filtered) {
+            if (isAvailable(c))
+                available.add(c);
+        }
+
+        return available;
+    }
+
+    private boolean isAvailable(Car c)
+    {
+        if (rentedCarRepository.findByCar(c) == null)
+            return true;
+        else
+            return false;
     }
 }
