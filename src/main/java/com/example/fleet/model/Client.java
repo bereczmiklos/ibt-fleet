@@ -1,6 +1,7 @@
 package com.example.fleet.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,15 +15,14 @@ public class Client {
 
     //REVERSE NAVIGATION PROPERTY?
     @OneToMany(mappedBy = "client")
-    private List<Rental> rentals;
+    private List<Rental> rentals = new ArrayList<>();
 
     public Client() {
     }
 
-    public Client(String name, String email, List<Rental> rentals) {
+    public Client(String name, String email) {
         this.name = name;
         this.emailAddress = email;
-        this.rentals = rentals;
     }
 
     public int getClient_id() {

@@ -37,8 +37,8 @@ public class RentService{
     public void carAddToCart(String plate){
         Car car = carRepository.findByPlate(plate);
         bookedCars.addCar(car);
-        log.info("car added to cart: " + car.getId() +
-                ", cars in cart: " + getCountOfCarsInCart());
+        log.info("car added to cart: {car id=" + car.getId() +
+                ", cars in cart=" + getCountOfCarsInCart() + "}");
     }
 
     /**
@@ -48,11 +48,10 @@ public class RentService{
     public void carDeleteFromCart(String plate){
         Car car = carRepository.findByPlate(plate);
 
-        //TODO: remove(car) isn't working
         bookedCars.removeCar(car);
 
-        log.info("car deleted from cart: " + plate +
-                ", cars in cart: " + getCountOfCarsInCart());
+        log.info("car deleted from cart: {car id=" + car.getId() +
+                ", cars in cart=" + getCarsInCart().size() + "}");
     }
 
     /**

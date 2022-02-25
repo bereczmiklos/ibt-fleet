@@ -12,7 +12,7 @@ public class Rental {
     private int id;
 
     //foreign key - Client(id)
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Client client;
 

@@ -88,16 +88,9 @@ public class FleetApplication {
 			volkswagenList.add(v3);
 
 			//CLIENT DB
-			List<Rental> emptyRentalList = new ArrayList<>();
-			Client c1 = new Client("Kovács és társa bt","kovacsbt@kovacsbt.hu", emptyRentalList);
-			Client c2 = new Client("Pizza Hut", "pizzahut@ph.hu",emptyRentalList);
-			Client c3 = new Client("Food Panda", "foodpanda@gmail.com",emptyRentalList);
-
-			//RENTAL DB
-			Rental r1 = new Rental();
-
-			//RENTEDCAR DB
-			RentedCar rc1 = new RentedCar();
+			Client c1 = new Client("Kovács és társa bt","kovacsbt@kovacsbt.hu");
+			Client c2 = new Client("Pizza Hut", "pizzahut@ph.hu");
+			Client c3 = new Client("Food Panda", "foodpanda@gmail.com");
 
 			//SAVE TO DB
 			brandRepository.save(ford);
@@ -105,18 +98,14 @@ public class FleetApplication {
 			brandRepository.save(toyota);
 			brandRepository.save(volkswagen);
 
-			for (Car c: fordList) { carRepository.save(c); ford.setCars(fordList); }
-			for (Car c: mercedesList) { carRepository.save(c); mercedes.setCars(mercedesList);}
-			for (Car c: toyotaList) { carRepository.save(c); toyota.setCars(toyotaList);}
-			for (Car c: volkswagenList) { carRepository.save(c); volkswagen.setCars(volkswagenList);}
+			for (Car c: fordList) { carRepository.save(c); }
+			for (Car c: mercedesList) { carRepository.save(c); }
+			for (Car c: toyotaList) { carRepository.save(c); }
+			for (Car c: volkswagenList) { carRepository.save(c); }
 
 			clientRepository.save(c1);
 			clientRepository.save(c2);
 			clientRepository.save(c3);
-
-			rentalRepository.save(r1);
-
-			rentedCarRepository.save(rc1);
 
 			log.info("------------------------------START------------------------------");
 			log.info("db created: " +
