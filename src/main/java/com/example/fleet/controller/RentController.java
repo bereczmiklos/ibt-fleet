@@ -1,6 +1,7 @@
 package com.example.fleet.controller;
 
 import com.example.fleet.model.BookedCars;
+import com.example.fleet.model.Car;
 import com.example.fleet.model.Client;
 import com.example.fleet.model.Rental;
 import com.example.fleet.service.RentService;
@@ -63,6 +64,7 @@ public class RentController {
     @GetMapping("/finalrent")
     public String rentFinalization(HttpSession session, Model model)
     {
+        sumPriceRefresh(session);
         return FINALIZATION;
     }
 
@@ -73,6 +75,19 @@ public class RentController {
         session.removeAttribute(BOOKEDCARS);
         rentService.carDeleteFromCart(plate);
         session.setAttribute(BOOKEDCARS, rentService.getCarsInCart());
+        sumPriceRefresh(session);
         return FINALIZATION;
+    }
+
+    private void sumPriceRefresh(HttpSession session)
+    {
+        int rentPrice = 0;
+        List<Car> carsInCart = (List<Car>)session.getAttribute(BOOKEDCARS);
+        if (carsInCart != null){
+            for (Car c: carsInCart) {
+                rentPrice += c.getPrice();
+            }
+        }
+        session.setAttribute("rentprice", rentPrice);
     }
 }
