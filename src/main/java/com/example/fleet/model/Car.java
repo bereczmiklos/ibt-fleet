@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     //foreign key: Brand(id)
     @ManyToOne
@@ -18,12 +18,12 @@ public class Car {
     private String type;
     private String plate;
     private CarFuelType fuel;
-    private int price;
+    private Integer price;
 
     public Car() {
     }
 
-    public Car(Brand brand, CarCategory category, String type, String plate, CarFuelType fuel, int price) {
+    public Car(Brand brand, CarCategory category, String type, String plate, CarFuelType fuel, Integer price) {
         this.brand = brand;
         this.category = category;
         this.type = type;
@@ -32,7 +32,7 @@ public class Car {
         this.price = price;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -56,7 +56,7 @@ public class Car {
         return fuel;
     }
 
-    public int getPrice() {
+    public Integer getPrice() {
         return price;
     }
 

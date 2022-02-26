@@ -1,11 +1,10 @@
 package com.example.fleet.repository;
 
-import java.util.List;
-
 import com.example.fleet.model.Client;
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ClientRepository extends CrudRepository<Client, Integer> {
+public interface ClientRepository extends JpaRepository<Client, Integer> {
 
     List<Client> findAll();
 

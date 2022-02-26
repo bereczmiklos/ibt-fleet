@@ -1,13 +1,15 @@
 package com.example.fleet.repository;
 
-import java.util.List;
-
 import com.example.fleet.model.Brand;
-import org.springframework.data.repository.CrudRepository;
+import com.example.fleet.model.BrandName;
+import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BrandRepository extends CrudRepository<Brand, Integer> {
+public interface BrandRepository extends JpaRepository<Brand, Integer> {
 
     List<Brand> findAll();
 
     Brand findById(int id);
+
+    Brand findByName(BrandName name);
 }
