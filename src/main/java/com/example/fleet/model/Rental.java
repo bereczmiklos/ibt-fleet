@@ -21,10 +21,10 @@ public class Rental {
     @OneToMany(mappedBy = "rental")
     private List<RentedCar> rentedCars;
 
-    @Column
+    @Column(name = "begin_date")
     private Date begin;
 
-    @Column
+    @Column(name = "end_date")
     private Date end;
 
     public int getId() {

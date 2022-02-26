@@ -28,84 +28,88 @@ public class FleetApplication {
 								  RentedCarRepository rentedCarRepository) {
 		return (args) -> {
 
-			List<Car> fordList = new ArrayList<>();
-			List<Car> mercedesList = new ArrayList<>();
-			List<Car> toyotaList = new ArrayList<>();
-			List<Car> volkswagenList = new ArrayList<>();
+			// init only if DB not yet filled with test data:
+			if (clientRepository.findAll().isEmpty()) {
 
-			//BRAND TABLE:
-			Brand ford = new Brand(fordList,BrandName.FORD);
-			Brand mercedes = new Brand(mercedesList,BrandName.MERCEDES);
-			Brand toyota = new Brand(toyotaList,BrandName.TOYOTA);
-			Brand volkswagen = new Brand(volkswagenList,BrandName.VOLKSWAGEN);
+				List<Car> fordList = new ArrayList<>();
+				List<Car> mercedesList = new ArrayList<>();
+				List<Car> toyotaList = new ArrayList<>();
+				List<Car> volkswagenList = new ArrayList<>();
 
-			//CAR TABLE:
-			Car f1 = new Car(ford, CarCategory.CAR, "Fiesta", "AAA-123", CarFuelType.PETROL,
-					149990);
-			Car f2 = new Car(ford, CarCategory.CAR, "Puma", "AAA-234", CarFuelType.PETROL,
-					174990);
-			Car f3 = new Car(ford, CarCategory.CAR, "Mondeo", "AAA-567", CarFuelType.DIESEL,
-					274990);
-			Car f4 = new Car(ford, CarCategory.VAN, "Transit", "AAA-789", CarFuelType.DIESEL,
-					219990);
-			Car f5 = new Car(ford, CarCategory.MINIBUS, "Tourneo", "AAA-101", CarFuelType.DIESEL,
-					259900);
+				//BRAND TABLE:
+				Brand ford = new Brand(fordList,BrandName.FORD);
+				Brand mercedes = new Brand(mercedesList,BrandName.MERCEDES);
+				Brand toyota = new Brand(toyotaList,BrandName.TOYOTA);
+				Brand volkswagen = new Brand(volkswagenList,BrandName.VOLKSWAGEN);
 
-			fordList.add(f1);
-			fordList.add(f2);
-			fordList.add(f3);
-			fordList.add(f4);
-			fordList.add(f5);
+				//CAR TABLE:
+				Car f1 = new Car(ford, CarCategory.CAR, "Fiesta", "AAA-123", CarFuelType.PETROL,
+						149990);
+				Car f2 = new Car(ford, CarCategory.CAR, "Puma", "AAA-234", CarFuelType.PETROL,
+						174990);
+				Car f3 = new Car(ford, CarCategory.CAR, "Mondeo", "AAA-567", CarFuelType.DIESEL,
+						274990);
+				Car f4 = new Car(ford, CarCategory.VAN, "Transit", "AAA-789", CarFuelType.DIESEL,
+						219990);
+				Car f5 = new Car(ford, CarCategory.MINIBUS, "Tourneo", "AAA-101", CarFuelType.DIESEL,
+						259900);
 
-			Car m1 = new Car(mercedes, CarCategory.CAR, "C160", "BBB-123", CarFuelType.PETROL,
-					319990);
-			Car m2 = new Car(mercedes, CarCategory.CAR, "E200D", "BBB-456", CarFuelType.DIESEL,
-					379990);
+				fordList.add(f1);
+				fordList.add(f2);
+				fordList.add(f3);
+				fordList.add(f4);
+				fordList.add(f5);
 
-			mercedesList.add(m1);
-			mercedesList.add(m2);
+				Car m1 = new Car(mercedes, CarCategory.CAR, "C160", "BBB-123", CarFuelType.PETROL,
+						319990);
+				Car m2 = new Car(mercedes, CarCategory.CAR, "E200D", "BBB-456", CarFuelType.DIESEL,
+						379990);
 
-			Car t1 = new Car(toyota, CarCategory.CAR, "Yaris", "CCC-123", CarFuelType.ELECTRIC,
-					129990);
-			Car t2 = new Car(toyota, CarCategory.CAR, "Avensis", "CCC-456", CarFuelType.DIESEL,
-					149990);
-			Car t3 = new Car(toyota, CarCategory.MINIBUS, "HiAce", "CCC-789", CarFuelType.DIESEL,
-					199900);
+				mercedesList.add(m1);
+				mercedesList.add(m2);
 
-			toyotaList.add(t1);
-			toyotaList.add(t2);
-			toyotaList.add(t3);
+				Car t1 = new Car(toyota, CarCategory.CAR, "Yaris", "CCC-123", CarFuelType.ELECTRIC,
+						129990);
+				Car t2 = new Car(toyota, CarCategory.CAR, "Avensis", "CCC-456", CarFuelType.DIESEL,
+						149990);
+				Car t3 = new Car(toyota, CarCategory.MINIBUS, "HiAce", "CCC-789", CarFuelType.DIESEL,
+						199900);
 
-			Car v1 = new Car(volkswagen, CarCategory.CAR, "Passat", "DDD-123", CarFuelType.DIESEL,
-					199000);
-			Car v2 = new Car(volkswagen, CarCategory.VAN, "Caddy", "DDD-456", CarFuelType.PETROL,
-					239000);
-			Car v3 = new Car(volkswagen, CarCategory.VAN, "Transporter-E", "DDD-789",
-					CarFuelType.ELECTRIC,239000);
+				toyotaList.add(t1);
+				toyotaList.add(t2);
+				toyotaList.add(t3);
 
-			volkswagenList.add(v1);
-			volkswagenList.add(v2);
-			volkswagenList.add(v3);
+				Car v1 = new Car(volkswagen, CarCategory.CAR, "Passat", "DDD-123", CarFuelType.DIESEL,
+						199000);
+				Car v2 = new Car(volkswagen, CarCategory.VAN, "Caddy", "DDD-456", CarFuelType.PETROL,
+						239000);
+				Car v3 = new Car(volkswagen, CarCategory.VAN, "Transporter-E", "DDD-789",
+						CarFuelType.ELECTRIC,239000);
 
-			//CLIENT DB
-			Client c1 = new Client("Kovács és társa bt","kovacsbt@kovacsbt.hu");
-			Client c2 = new Client("Pizza Hut", "pizzahut@ph.hu");
-			Client c3 = new Client("Food Panda", "foodpanda@gmail.com");
+				volkswagenList.add(v1);
+				volkswagenList.add(v2);
+				volkswagenList.add(v3);
 
-			//SAVE TO DB
-			brandRepository.save(ford);
-			brandRepository.save(mercedes);
-			brandRepository.save(toyota);
-			brandRepository.save(volkswagen);
+				//CLIENT DB
+				Client c1 = new Client("Kovács és társa bt","kovacsbt@kovacsbt.hu");
+				Client c2 = new Client("Pizza Hut", "pizzahut@ph.hu");
+				Client c3 = new Client("Food Panda", "foodpanda@gmail.com");
 
-			for (Car c: fordList) { carRepository.save(c); }
-			for (Car c: mercedesList) { carRepository.save(c); }
-			for (Car c: toyotaList) { carRepository.save(c); }
-			for (Car c: volkswagenList) { carRepository.save(c); }
+				//SAVE TO DB
+				brandRepository.save(ford);
+				brandRepository.save(mercedes);
+				brandRepository.save(toyota);
+				brandRepository.save(volkswagen);
 
-			clientRepository.save(c1);
-			clientRepository.save(c2);
-			clientRepository.save(c3);
+				for (Car c: fordList) { carRepository.save(c); }
+				for (Car c: mercedesList) { carRepository.save(c); }
+				for (Car c: toyotaList) { carRepository.save(c); }
+				for (Car c: volkswagenList) { carRepository.save(c); }
+
+				clientRepository.save(c1);
+				clientRepository.save(c2);
+				clientRepository.save(c3);
+			}
 
 			log.info("------------------------------START------------------------------");
 			log.info("db created: " +
