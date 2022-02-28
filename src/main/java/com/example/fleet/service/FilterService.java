@@ -35,7 +35,6 @@ public class FilterService {
      * @param fuelType
      * @return  list of filtered cars by one parameter
      */
-    //TODO: multiple filter parameter (complete)
     public List<Car> filterCars(String brandName, String category, String fuelType){
 
         // collect filter args
@@ -52,8 +51,7 @@ public class FilterService {
         CarFuelType filterFuelType = null;
         if (fuelType != "") {
             log.info("filter by fueltype: " + fuelType);
-            // return carRepository.findByFuel(CarFuelType.valueOf(fuelType));
-            // TODO complete: filterFuelType = ...
+            filterFuelType = CarFuelType.valueOf(fuelType);
         }
 
         // apply filtering (if any)
