@@ -12,7 +12,7 @@
 <span th:unless="${session.bookedcars == null}">
 <form action="rent">
     <table cellspacing="3">
-        <tr><th>Márka</th><th>Típus</th><th>Kategória</th><th>Üzemanyag</th><th>Ár</th></tr>
+        <tr bgcolor="lightgray"><th>Márka</th><th>Típus</th><th>Kategória</th><th>Üzemanyag</th><th>Ár</th></tr>
         <tr th:each="car: ${session.bookedcars}">
             <td th:text= ${car.brand.name.getName} align="center"/>
             <td th:text="${car.type}" align="center"/>

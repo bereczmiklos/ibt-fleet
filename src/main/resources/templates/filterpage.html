@@ -8,7 +8,7 @@
 <form action="filter">
     <table>
         <tr>
-            <td>Márka</td><td>Kategória</td><td>Üzemanyag</td>
+            <th>Márka</th><th>Kategória</th><th>Üzemanyag</th>
         </tr>
         <tr>
             <td><select name="brandfilter" id="brand-select">
@@ -42,7 +42,7 @@
 <span th:unless="${filteredcars.size == 0}">
 <form action="filter">
     <table cellspacing="3">
-        <tr><th>Márka</th><th>Típus</th><th>Kategória</th><th>Üzemanyag</th><th>Ár</th></tr>
+        <tr bgcolor="lightgray"><th>Márka</th><th>Típus</th><th>Kategória</th><th>Üzemanyag</th><th>Ár</th></tr>
         <tr th:each="car: ${filteredcars}">
             <td th:text= ${car.brand.name.getName} align="center"/>
             <td th:text="${car.type}" align="center"/>
