@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpSession;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -42,8 +44,8 @@ public class RentController {
         Client client = (Client)session.getAttribute("clientlogined");
         clientId = client.getClient_id();
 
-        Date start = new SimpleDateFormat("yyyy-mm-dd").parse(startDate,new ParsePosition(1));
-        Date end = new SimpleDateFormat("yyyy-mm-dd").parse(endDate, new ParsePosition(1));
+        LocalDate start = LocalDate.parse(startDate);
+        LocalDate end = LocalDate.parse(endDate);
         rentService.newRent(clientId, start, end);
 
         session.setAttribute("clientsrental", rentService.getAllRentsByClient(clientId));

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -90,7 +91,7 @@ public class RentService{
      * @param start     the date of begin
      * @param end       the date of expire or resign
      */
-    public void newRent(int clientId, Date start, Date end){
+    public void newRent(int clientId, LocalDate start, LocalDate end){
         Rental newRent = new Rental();
         newRent.setClient(clientRepository.findById(clientId));
 

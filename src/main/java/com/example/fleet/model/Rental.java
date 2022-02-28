@@ -1,6 +1,7 @@
 package com.example.fleet.model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -22,10 +23,10 @@ public class Rental {
     private List<RentedCar> rentedCars;
 
     @Column(name = "begin_date")
-    private Date begin;
+    private LocalDate begin;
 
     @Column(name = "end_date")
-    private Date end;
+    private LocalDate end;
 
     public int getId() {
         return id;
@@ -39,11 +40,11 @@ public class Rental {
         return rentedCars;
     }
 
-    public Date getBegin() {
+    public LocalDate getBegin() {
         return begin;
     }
 
-    public Date getEnd() {
+    public LocalDate getEnd() {
         return end;
     }
 
@@ -55,11 +56,11 @@ public class Rental {
         this.rentedCars = rentedCars;
     }
 
-    public void setBegin(Date rent_begin) {
+    public void setBegin(LocalDate rent_begin) {
         this.begin = rent_begin;
     }
 
-    public void setEnd(Date rent_end) {
+    public void setEnd(LocalDate rent_end) {
         this.end = rent_end;
     }
 
