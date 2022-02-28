@@ -60,6 +60,10 @@ public class Car {
         return price;
     }
 
+    public void setPlate(String plate){
+        this.plate = plate;
+    }
+
     @Override
     public String toString() {
         return "Car{" +
