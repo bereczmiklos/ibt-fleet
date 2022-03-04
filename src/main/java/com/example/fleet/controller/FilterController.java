@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -56,12 +57,7 @@ public class FilterController {
             rentService.carAddToCart(plate);
             session.setAttribute("bookedcars", rentService.getCarsInCart());
             session.setAttribute("countofcarsincart", rentService.getCountOfCarsInCart());
-
         }
         return FILTERPAGE;
-    }
-
-    public boolean isInCart(Car car){
-        return rentService.getCarsInCart().contains(car);
     }
 }

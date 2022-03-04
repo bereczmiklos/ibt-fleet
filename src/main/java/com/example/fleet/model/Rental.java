@@ -2,7 +2,6 @@ package com.example.fleet.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -27,6 +26,8 @@ public class Rental {
 
     @Column(name = "end_date")
     private LocalDate end;
+
+
 
     public int getId() {
         return id;
