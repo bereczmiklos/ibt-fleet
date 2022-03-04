@@ -38,7 +38,6 @@ public class LoginController {
 
         if (clientLogined != null){
             session.setAttribute(CLIENTLOGINED, clientLogined);
-            session.setAttribute("clientname", clientLogined.getName());
 
             List<Rental> clientsRentals = rentService.getAllRentsByClient(clientLogined.getClient_id());
             session.setAttribute(CLIENTSRENTAL, clientsRentals);
@@ -73,6 +72,7 @@ public class LoginController {
                            @RequestParam(name = "email") String email,
                            HttpSession session){
 
+        session.removeAttribute(CLIENTLOGINED);
 
         loginService.registerNewClient(name,email);
         clientLogined = loginService.clientLogin(email);
