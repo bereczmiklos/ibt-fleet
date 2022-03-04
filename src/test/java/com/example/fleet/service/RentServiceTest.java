@@ -1,8 +1,6 @@
 package com.example.fleet.service;
 
-import com.example.fleet.model.Car;
-import com.example.fleet.model.Client;
-import com.example.fleet.model.Rental;
+import com.example.fleet.model.*;
 import com.example.fleet.repository.CarRepository;
 import com.example.fleet.repository.ClientRepository;
 import com.example.fleet.repository.RentalRepository;
@@ -10,6 +8,8 @@ import com.example.fleet.repository.RentedCarRepository;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -18,6 +18,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,53 +28,52 @@ import static org.junit.jupiter.api.Assertions.*;
 public class RentServiceTest {
 
     @Mock
-    ClientRepository clientRepository;
-    @Mock
     RentalRepository rentalRepository;
     @Mock
-    RentedCarRepository rentedCarRepository;
-    @Mock
     CarRepository carRepository;
+    @Mock
+    ClientRepository clientRepository;
     @InjectMocks
     RentService rentService = new RentService();
 
-    private static Client testClient;
-    private static Car testCar;
+    private Car car;
+    private Client client;
 
-    @Before
+    @BeforeEach
     public void init(){
-        MockitoAnnotations.openMocks(this);
-    }
+        Brand brand = new Brand(new ArrayList<>(),BrandName.FORD);
 
-    @BeforeAll
-    public static void setup(){
-        testClient = new Client("testclient", "testclient@tc.com");
+        car = new Car(brand, CarCategory.CAR, "test", "AAA-123", CarFuelType.PETROL, 20000);
+        car.setId(1);
+        //TODO: carRepository.save(car);
 
-        testCar = new Car();
-        testCar.setPlate("AAA-123");
+        client = new Client("testclient", "tc@tc.com");
     }
 
     @Test
     public void TestNewRentWithCorrectParams() {
-        rentService.newRent(testClient.getClient_id(), LocalDate.parse("2000-01-01"), LocalDate.parse(
+
+        rentService.newRent(client.getClient_id(), LocalDate.parse("2000-01-01"),
+                 LocalDate.parse(
                 "2000-02-01"));
 
-        List<Rental> r = rentalRepository.findByClient(testClient);
-        assertNotNull(r);
+        assertNotNull(rentalRepository.findByClient(client),"New rent added with correct " +
+                "params");
     }
 
     @Test
     public void TestNewRentWithIncorrectParams(){
-    }
+        Client testClient = new Client();
 
-    @Test
-    public void deleteRent() {
-
+        assertThrows(java.time.format.DateTimeParseException.class,
+                () -> rentService.newRent(0,
+                        LocalDate.parse("2000.01.01"),LocalDate.parse("20000201")),"New rent " +
+                        "added with incorrect dates");
     }
 
     @Test
     public void TestCarAddToCart(){
-
+        rentService.carAddToCart(car.getPlate());
+        assertNotNull(rentService.getCarsInCart(),"Car added to cart");
     }
-
 }

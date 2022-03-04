@@ -60,8 +60,9 @@ public class Car {
         return price;
     }
 
-    public void setPlate(String plate){
-        this.plate = plate;
+    public void setId(int id)
+    {
+        this.id = id;
     }
 
     @Override

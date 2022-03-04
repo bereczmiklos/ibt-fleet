@@ -24,6 +24,7 @@ import java.util.List;
 @Controller
 public class RentController {
 
+    
     public static final String FINALIZATION = "finalization";
     public static final String BOOKEDCARS = "bookedcars";
     public static final String MAINPAGE = "mainpage";

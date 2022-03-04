@@ -15,7 +15,7 @@
 </span>
 <span th:unless="${session.clientsrental.size} == 0">
     <table border="0" cellspacing="2" cellpadding="1">
-        <tr bgcolor="lightgray"><th>járművek száma</th><th>kezdete</th><th>vége</th><th>lemondás</th></tr>
+        <tr bgcolor="lightgray"><th>járművek száma</th><th>kezdete</th><th>vége</th></tr>
         <tr th:each="rent: ${session.clientsrental}">
             <td th:text= ${rent.rentedCars.size} align="center"/>
             <td th:text= ${rent.begin} />

@@ -17,8 +17,11 @@ import java.util.List;
 
 @Controller
 public class LoginController {
+
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
+    public static final String MAINPAGE = "mainpage";
+    public static final String CLIENTSRENTAL = "clientsrental";
     public static final String CLIENTLOGINED = "clientlogined";
 
     @Autowired
@@ -26,7 +29,7 @@ public class LoginController {
     @Autowired
     private RentService rentService;
 
-    Client clientLogined;
+    private Client clientLogined;
 
     @PostMapping("/login")
     public String login(@RequestParam(name = "emailaddress") String email, HttpSession session){
@@ -38,19 +41,20 @@ public class LoginController {
             session.setAttribute("clientname", clientLogined.getName());
 
             List<Rental> clientsRentals = rentService.getAllRentsByClient(clientLogined.getClient_id());
-            session.setAttribute("clientsrental", clientsRentals);
+            session.setAttribute(CLIENTSRENTAL, clientsRentals);
 
             log.info("client login: {id=" + clientLogined.getClient_id() +
                    ", name=" + clientLogined.getName() +
                     ", active rentals=" + clientsRentals.size() +"}");
 
-            return "mainpage";
+            return MAINPAGE;
         }
         else return "invalid";
     }
 
     @GetMapping("/logout")
     public String logout(HttpSession session){
+
         session.removeAttribute(CLIENTLOGINED);
 
         log.info("client logout: {id=" + clientLogined.getClient_id() +
@@ -58,4 +62,34 @@ public class LoginController {
 
         return "login";
     }
+
+    @GetMapping("/registration")
+    public String registration(){
+        return "registerpage";
+    }
+
+    @GetMapping("/register")
+    public String register(@RequestParam(name = "name") String name,
+                           @RequestParam(name = "email") String email,
+                           HttpSession session){
+
+
+        loginService.registerNewClient(name,email);
+        clientLogined = loginService.clientLogin(email);
+        session.setAttribute(CLIENTLOGINED, clientLogined);
+
+        log.info("new client registered: {id=" +clientLogined.getClient_id() +
+                ", name=" + clientLogined.getName() +
+                ", email=" + clientLogined.getEmailAddress());
+
+        List<Rental> clientsRentals = rentService.getAllRentsByClient(clientLogined.getClient_id());
+        session.setAttribute(CLIENTSRENTAL, clientsRentals);
+
+        log.info("client login: {id=" + clientLogined.getClient_id() +
+                ", name=" + clientLogined.getName() +
+                ", active rentals=" + clientsRentals.size() +"}");
+
+        return MAINPAGE;
+    }
+
 }

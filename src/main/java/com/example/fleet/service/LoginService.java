@@ -17,4 +17,13 @@ public class LoginService {
     public Client clientLogin(String email){
         return clientRepository.findByEmailAddress(email);
     }
+
+    public void registerNewClient(String name, String email){
+
+        if (clientRepository.findByEmailAddress(email) == null){
+            Client newClient = new Client(name, email);
+            clientRepository.save(newClient);
+        }
+        else throw new RuntimeException("A felhasználó már létezik!");
+    }
 }
