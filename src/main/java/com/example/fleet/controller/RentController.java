@@ -39,19 +39,29 @@ public class RentController {
                      HttpSession session,
                      Model model){
 
-        session.removeAttribute(BOOKEDCARS);
-        session.removeAttribute("countofcarsincart");
 
-        Client client = (Client)session.getAttribute("clientlogined");
-        clientId = client.getClient_id();
+        //TODO: parse try-catch
 
-        LocalDate start = LocalDate.parse(startDate);
-        LocalDate end = LocalDate.parse(endDate);
-        rentService.newRent(clientId, start, end);
+        try{
+            LocalDate start = LocalDate.parse(startDate);
+            LocalDate end = LocalDate.parse(endDate);
 
-        session.setAttribute("clientsrental", rentService.getAllRentsByClient(clientId));
+            session.removeAttribute(BOOKEDCARS);
+            session.removeAttribute("countofcarsincart");
 
-        return MAINPAGE;
+            Client client = (Client)session.getAttribute("clientlogined");
+            clientId = client.getClient_id();
+
+            rentService.newRent(clientId, start, end);
+
+            session.setAttribute("clientsrental", rentService.getAllRentsByClient(clientId));
+
+            return MAINPAGE;
+        }
+        catch(java.time.DateTimeException e){
+            // Message box or invalid date html
+            return "invaliddate";
+        }
     }
 
     @GetMapping("/resignation")

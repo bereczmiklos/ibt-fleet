@@ -83,7 +83,6 @@ public class FilterService {
             if (isAvailable(c))
                 available.add(c);
         }
-
         return available;
     }
 

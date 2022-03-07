@@ -45,6 +45,7 @@ public class FilterController {
         else{
             filteredCars = filterService.filterCars(brandName, category, fuelType);
             model.addAttribute(FILTEREDCARS, filterService.availableFilter(filteredCars));
+            model.addAttribute("cartedcars", rentService.getCarsInCart());
         }
 
         //Booking:
