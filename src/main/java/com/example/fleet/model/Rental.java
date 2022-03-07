@@ -27,6 +27,8 @@ public class Rental {
     @Column(name = "end_date")
     private LocalDate end;
 
+    @Column(name= "price")
+    private int price;
 
 
     public int getId() {
@@ -49,6 +51,10 @@ public class Rental {
         return end;
     }
 
+    public int getPrice() {
+        return price;
+    }
+
     public void setClient(Client client) {
         this.client = client;
     }
@@ -67,6 +73,10 @@ public class Rental {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     @Override

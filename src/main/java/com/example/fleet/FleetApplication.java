@@ -44,15 +44,15 @@ public class FleetApplication {
 
 				//CAR TABLE:
 				Car f1 = new Car(ford, CarCategory.CAR, "Fiesta", "AAA-123", CarFuelType.PETROL,
-						149990);
+						149990 / 30);
 				Car f2 = new Car(ford, CarCategory.CAR, "Puma", "AAA-234", CarFuelType.PETROL,
-						174990);
+						174990 / 30);
 				Car f3 = new Car(ford, CarCategory.CAR, "Mondeo", "AAA-567", CarFuelType.DIESEL,
-						274990);
+						274990 / 30);
 				Car f4 = new Car(ford, CarCategory.VAN, "Transit", "AAA-789", CarFuelType.DIESEL,
-						219990);
+						219990 / 30);
 				Car f5 = new Car(ford, CarCategory.MINIBUS, "Tourneo", "AAA-101", CarFuelType.DIESEL,
-						259900);
+						259900 / 30);
 
 				fordList.add(f1);
 				fordList.add(f2);
@@ -61,30 +61,30 @@ public class FleetApplication {
 				fordList.add(f5);
 
 				Car m1 = new Car(mercedes, CarCategory.CAR, "C160", "BBB-123", CarFuelType.PETROL,
-						319990);
+						319990 / 30);
 				Car m2 = new Car(mercedes, CarCategory.CAR, "E200D", "BBB-456", CarFuelType.DIESEL,
-						379990);
+						379990 / 30);
 
 				mercedesList.add(m1);
 				mercedesList.add(m2);
 
 				Car t1 = new Car(toyota, CarCategory.CAR, "Yaris", "CCC-123", CarFuelType.ELECTRIC,
-						129990);
+						129990 / 30);
 				Car t2 = new Car(toyota, CarCategory.CAR, "Avensis", "CCC-456", CarFuelType.DIESEL,
-						149990);
+						149990 / 30);
 				Car t3 = new Car(toyota, CarCategory.MINIBUS, "HiAce", "CCC-789", CarFuelType.DIESEL,
-						199900);
+						199900 / 30);
 
 				toyotaList.add(t1);
 				toyotaList.add(t2);
 				toyotaList.add(t3);
 
 				Car v1 = new Car(volkswagen, CarCategory.CAR, "Passat", "DDD-123", CarFuelType.DIESEL,
-						199000);
+						199000 / 30);
 				Car v2 = new Car(volkswagen, CarCategory.VAN, "Caddy", "DDD-456", CarFuelType.PETROL,
-						239000);
+						239000 / 30);
 				Car v3 = new Car(volkswagen, CarCategory.VAN, "Transporter-E", "DDD-789",
-						CarFuelType.ELECTRIC,239000);
+						CarFuelType.ELECTRIC,239000 / 30);
 
 				volkswagenList.add(v1);
 				volkswagenList.add(v2);

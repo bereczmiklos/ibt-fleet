@@ -93,13 +93,21 @@ public class RentService{
     public void newRent(int clientId, LocalDate start, LocalDate end){
         Rental newRent = new Rental();
         newRent.setClient(clientRepository.findById(clientId));
+        List<Car> bookedCars = this.bookedCars.getBookedCars();
+
+        // 03.07 -> 10.10 = 7*30 + (10-7)
+        // endMonth-startMonth)*30 + (endDay-startDay
+        int dayPriceOfRent =
+                sumCarPrice(bookedCars) * ((end.getMonthValue() - start.getMonthValue()) * 30
+                        + (end.getDayOfMonth() - start.getDayOfMonth()));
 
         newRent.setBegin(start);
         newRent.setEnd(end);
         newRent.setRentedCars(new ArrayList<RentedCar>());
+        newRent.setPrice(dayPriceOfRent);
         rentalRepository.save(newRent);
 
-        for (Car s: bookedCars.getBookedCars()) {
+        for (Car s: bookedCars) {
             newRentedCar(newRent, s);
         }
 
@@ -108,7 +116,7 @@ public class RentService{
                 ", end: " + end +
                 ", count cars: " + newRent.getRentedCars().size() + "}");
 
-        bookedCars.clearBookedCars();
+        this.bookedCars.clearBookedCars();
     }
 
     /**
@@ -132,6 +140,14 @@ public class RentService{
     {
         Client client = clientRepository.findById(clientId);
         return rentalRepository.findByClient(client);
+    }
+
+    private int sumCarPrice(List<Car> bookedCars){
+        int sum = 0;
+        for (Car c:bookedCars) {
+            sum += c.getPrice();
+        }
+        return sum;
     }
 
     private void newRentedCar(Rental rent, Car car){
