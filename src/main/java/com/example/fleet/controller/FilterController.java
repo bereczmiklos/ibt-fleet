@@ -3,6 +3,8 @@ package com.example.fleet.controller;
 import com.example.fleet.model.Car;
 import com.example.fleet.service.FilterService;
 import com.example.fleet.service.RentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,10 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class FilterController {
+
+    private static final Logger log = LoggerFactory.getLogger(FilterController.class);
 
     public static final String FILTERPAGE = "filterpage";
     public static final String FILTEREDCARS = "filteredcars";
@@ -37,13 +42,12 @@ public class FilterController {
         //Filtering:
         if (brandName == null && category == null && fuelType == null)
         {
-            unFilteredCars = filterService.getUnfilteredCars();
-            model.addAttribute(FILTEREDCARS, filterService.availableFilter(unFilteredCars));
+            unFilteredCars =  filterService.getUnfilteredCars();
+            model.addAttribute(FILTEREDCARS,filterService.availableFilter(unFilteredCars));
         }
         else{
             filteredCars = filterService.filterCars(brandName, category, fuelType);
-            model.addAttribute(FILTEREDCARS, filterService.availableFilter(filteredCars));
-            model.addAttribute("cartedcars", rentService.getCarsInCart());
+            model.addAttribute(FILTEREDCARS,filterService.availableFilter(filteredCars));
         }
 
         //Booking:
@@ -56,7 +60,31 @@ public class FilterController {
             rentService.carAddToCart(plate);
             session.setAttribute("bookedcars", rentService.getCarsInCart());
             session.setAttribute("countofcarsincart", rentService.getCountOfCarsInCart());
+
+            //TODO: refreshing available cars by bookedcars attribute
+            if (brandName == null && category == null && fuelType == null)
+                model.addAttribute(FILTEREDCARS,
+                        bookedFilter(filterService.availableFilter(unFilteredCars), session));
+            else
+                model.addAttribute(FILTEREDCARS,
+                        bookedFilter(filterService.availableFilter(filteredCars), session));
         }
         return FILTERPAGE;
+    }
+
+    private List<Car> bookedFilter(List<Car> unBookedCars, HttpSession session){
+        List<Car> bookedCarsInSession = rentService.getCarsInCart();
+        List<Car> res = new ArrayList<>();
+
+        if (bookedCarsInSession!=null){
+            for (Car c : unBookedCars) {
+                if (!bookedCarsInSession.contains(c)){
+                    res.add(c);
+                }
+            }
+        }
+        else res = unBookedCars;
+
+        return res;
     }
 }

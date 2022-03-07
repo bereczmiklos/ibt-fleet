@@ -20,6 +20,7 @@ public class RentController {
     public static final String FINALIZATION = "finalization";
     public static final String BOOKEDCARS = "bookedcars";
     public static final String MAINPAGE = "mainpage";
+    public static final String CLIENTSRENTAL = "clientsrental";
 
     @Autowired
     private RentService rentService;
@@ -28,8 +29,7 @@ public class RentController {
     @GetMapping("/rent")
     public String rent(@RequestParam(name="start_date") String startDate,
                      @RequestParam(name="end_date") String endDate,
-                     HttpSession session,
-                     Model model){
+                     HttpSession session){
 
         try{
             LocalDate start = LocalDate.parse(startDate);
@@ -43,7 +43,7 @@ public class RentController {
 
             rentService.newRent(clientId, start, end);
 
-            session.setAttribute("clientsrental", rentService.getAllRentsByClient(clientId));
+            session.setAttribute(CLIENTSRENTAL, rentService.getAllRentsByClient(clientId));
 
             return MAINPAGE;
         }
@@ -57,7 +57,7 @@ public class RentController {
                                   HttpSession session){
 
         rentService.deleteRent(rentId);
-        session.setAttribute("clientsrental", rentService.getAllRentsByClient(clientId));
+        session.setAttribute(CLIENTSRENTAL, rentService.getAllRentsByClient(clientId));
 
         return MAINPAGE;
     }

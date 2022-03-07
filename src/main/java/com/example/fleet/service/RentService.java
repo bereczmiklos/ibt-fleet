@@ -28,7 +28,7 @@ public class RentService{
     @Autowired
     private CarRepository carRepository;
 
-    private BookedCars bookedCars = new BookedCars();
+    private BookedCars cart = BookedCars.getInstance();
 
     /**
      * Add cars by plate numbers to BookedCars instance
@@ -36,9 +36,15 @@ public class RentService{
      */
     public void carAddToCart(String plate){
         Car car = carRepository.findByPlate(plate);
-        bookedCars.addCar(car);
-        log.info("car added to cart: {car id=" + car.getId() +
-                ", cars in cart=" + getCountOfCarsInCart() + "}");
+
+        if (!cart.isContainsCar(car)){
+            cart.addCar(car);
+
+            log.info("car added to cart: {car id=" + car.getId() +
+                    ", cars in cart=" + getCountOfCarsInCart() + "}");
+        }
+        else
+            log.info("car is alredy in cart: {car id=" + car.getId() +"}");
     }
 
     /**
@@ -48,7 +54,7 @@ public class RentService{
     public void carDeleteFromCart(String plate){
         Car car = carRepository.findByPlate(plate);
 
-        bookedCars.removeCar(car);
+        cart.removeCar(car);
 
         log.info("car deleted from cart: {car id=" + car.getId() +
                 ", cars in cart=" + getCarsInCart().size() + "}");
@@ -59,7 +65,7 @@ public class RentService{
      * @return
      */
     public int getCountOfCarsInCart(){
-        return bookedCars.getCountOfBookedCars();
+        return cart.getBookedCarsCount();
     }
 
     /**
@@ -68,7 +74,7 @@ public class RentService{
      */
     public List<Car> getCarsInCart()
     {
-        return bookedCars.getBookedCars();
+        return cart.getBookedCars();
     }
 
     /**
@@ -93,10 +99,8 @@ public class RentService{
     public void newRent(int clientId, LocalDate start, LocalDate end){
         Rental newRent = new Rental();
         newRent.setClient(clientRepository.findById(clientId));
-        List<Car> bookedCars = this.bookedCars.getBookedCars();
+        List<Car> bookedCars = this.cart.getBookedCars();
 
-        // 03.07 -> 10.10 = 7*30 + (10-7)
-        // endMonth-startMonth)*30 + (endDay-startDay
         int dayPriceOfRent =
                 sumCarPrice(bookedCars) * ((end.getMonthValue() - start.getMonthValue()) * 30
                         + (end.getDayOfMonth() - start.getDayOfMonth()));
@@ -116,7 +120,7 @@ public class RentService{
                 ", end: " + end +
                 ", count cars: " + newRent.getRentedCars().size() + "}");
 
-        this.bookedCars.clearBookedCars();
+        this.cart.clearBookedCars();
     }
 
     /**

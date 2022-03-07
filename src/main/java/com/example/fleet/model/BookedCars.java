@@ -6,19 +6,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookedCars {
-    CarRepository carRepository;
-    private  List<Car> bookedCars;
+    private static BookedCars CART;
+    private List<Car> bookedCars = new ArrayList<>();
 
-    public BookedCars() {
-        this.bookedCars  = new ArrayList<>();
+    private BookedCars(){
+
+    }
+
+    public static BookedCars getInstance(){
+        if (CART == null){
+            CART = new BookedCars();
+        }
+        return CART;
+    }
+
+    public List<Car> getBookedCars() {
+        return bookedCars;
+    }
+
+    public int getBookedCarsCount(){
+        return bookedCars.size();
+    }
+
+    public void clearBookedCars(){
+        bookedCars.clear();
     }
 
     public void addCar(Car car){
         bookedCars.add(car);
-    }
-
-    public void clearBookedCars(){
-        this.bookedCars.clear();
     }
 
     public void removeCar(Car car){
@@ -30,11 +45,14 @@ public class BookedCars {
         bookedCars.remove(idx);
     }
 
-    public int getCountOfBookedCars(){
-        return this.bookedCars.size();
-    }
-
-    public List<Car> getBookedCars(){
-        return this.bookedCars;
+    public boolean isContainsCar(Car car){
+        if (bookedCars != null)
+        {
+            for (Car c: bookedCars) {
+                if (car == c)
+                    return true;
+            }
+        }
+        return false;
     }
 }
