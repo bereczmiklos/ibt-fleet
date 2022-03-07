@@ -1,12 +1,8 @@
 package com.example.fleet.controller;
 
-import com.example.fleet.model.BookedCars;
 import com.example.fleet.model.Car;
 import com.example.fleet.model.Client;
-import com.example.fleet.model.Rental;
 import com.example.fleet.service.RentService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,11 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -39,9 +31,6 @@ public class RentController {
                      HttpSession session,
                      Model model){
 
-
-        //TODO: parse try-catch
-
         try{
             LocalDate start = LocalDate.parse(startDate);
             LocalDate end = LocalDate.parse(endDate);
@@ -59,7 +48,6 @@ public class RentController {
             return MAINPAGE;
         }
         catch(java.time.DateTimeException e){
-            // Message box or invalid date html
             return "invaliddate";
         }
     }
@@ -84,7 +72,7 @@ public class RentController {
     @GetMapping("/deletecarfromcart")
     public String deleteCarFromCart(@RequestParam("platetodelete") String plate,HttpSession session)
     {
-        //Töröljük az adott autót egy linken keresztül a BookedCars objektumból
+        //Delete the car from BookedCars object via link
         session.removeAttribute(BOOKEDCARS);
         rentService.carDeleteFromCart(plate);
         session.setAttribute(BOOKEDCARS, rentService.getCarsInCart());

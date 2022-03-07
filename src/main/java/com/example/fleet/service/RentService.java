@@ -116,7 +116,7 @@ public class RentService{
      * @param rentId the expired or resigned rent's id
      */
     public void deleteRent(int rentId){
-        //Az összes RentedCar rekord törlése ahol a bérlésId azonos a törlendő bérlés id-val:
+        //Delete all RentedCar record where rentId equals rentId to be deleted
         deleteRentedCar(rentId);
         rentalRepository.delete(rentalRepository.findById(rentId));
 
