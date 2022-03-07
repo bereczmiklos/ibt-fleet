@@ -28,7 +28,6 @@ public class FilterController {
     @Autowired
     RentService rentService;
 
-    private List<Car> unFilteredCars;
     private List<Car> filteredCars;
 
     @GetMapping("/filter")
@@ -40,15 +39,8 @@ public class FilterController {
                              HttpSession session){
 
         //Filtering:
-        if (brandName == null && category == null && fuelType == null)
-        {
-            unFilteredCars =  filterService.getUnfilteredCars();
-            model.addAttribute(FILTEREDCARS,filterService.availableFilter(unFilteredCars));
-        }
-        else{
-            filteredCars = filterService.filterCars(brandName, category, fuelType);
-            model.addAttribute(FILTEREDCARS,filterService.availableFilter(filteredCars));
-        }
+        filteredCars = filterService.filterCars(brandName, category, fuelType);
+        model.addAttribute(FILTEREDCARS,filterService.availableFilter(filteredCars));
 
         //Booking:
         //Put back into request scope
@@ -61,24 +53,21 @@ public class FilterController {
             session.setAttribute("bookedcars", rentService.getCarsInCart());
             session.setAttribute("countofcarsincart", rentService.getCountOfCarsInCart());
 
-            //TODO: refreshing available cars by bookedcars attribute
-            if (brandName == null && category == null && fuelType == null)
-                model.addAttribute(FILTEREDCARS,
-                        bookedFilter(filterService.availableFilter(unFilteredCars), session));
-            else
-                model.addAttribute(FILTEREDCARS,
-                        bookedFilter(filterService.availableFilter(filteredCars), session));
+            model.addAttribute(FILTEREDCARS,
+                bookedFilter(filterService.availableFilter(filteredCars)));
         }
         return FILTERPAGE;
     }
 
-    private List<Car> bookedFilter(List<Car> unBookedCars, HttpSession session){
+    private List<Car> bookedFilter(List<Car> unBookedCars){
+
         List<Car> bookedCarsInSession = rentService.getCarsInCart();
         List<Car> res = new ArrayList<>();
 
         if (bookedCarsInSession!=null){
             for (Car c : unBookedCars) {
                 if (!bookedCarsInSession.contains(c)){
+                    log.info("      not contains");
                     res.add(c);
                 }
             }

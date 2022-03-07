@@ -46,13 +46,11 @@ public class BookedCars {
     }
 
     public boolean isContainsCar(Car car){
-        if (bookedCars != null)
-        {
+
             for (Car c: bookedCars) {
                 if (car == c)
                     return true;
             }
-        }
         return false;
     }
 }

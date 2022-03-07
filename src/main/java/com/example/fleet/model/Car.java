@@ -1,6 +1,7 @@
 package com.example.fleet.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name="car")
@@ -75,5 +76,15 @@ public class Car {
                 ", fuel=" + fuel +
                 ", price=" + price +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj == null ? null : this.getPlate().equals(((Car)obj).getPlate());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(plate);
     }
 }

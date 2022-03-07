@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,17 +40,17 @@ public class FilterService {
 
         // collect filter args
         Brand filterBrand = null;
-        if (brandName != "") {
+        if (!ObjectUtils.isEmpty(brandName)) {
             log.info("filter by brand: " + brandName);
             filterBrand = brandRepository.findByName(BrandName.valueOf(brandName));
         }
         CarCategory filterCategory = null;
-        if (category != "") {
+        if (!ObjectUtils.isEmpty(category)) {
             log.info("filter by category: " + category);
             filterCategory = CarCategory.valueOf(category);
         }
         CarFuelType filterFuelType = null;
-        if (fuelType != "") {
+        if (!ObjectUtils.isEmpty(fuelType)) {
             log.info("filter by fueltype: " + fuelType);
             filterFuelType = CarFuelType.valueOf(fuelType);
         }
@@ -83,6 +84,7 @@ public class FilterService {
             if (isAvailable(c))
                 available.add(c);
         }
+        log.info("Available filter: " + available);
         return available;
     }
 
