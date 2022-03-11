@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajánlatok</title>
+</head>
+<tbody>
+Ajánlat:<span th:text="${selectedoffer}" /></br>
+<table cellspacing="3">
+    <tr bgcolor="lightgray"><th>Márka</th><th>Típus</th><th>Kategória</th><th>Üzemanyag</th><th>Ár/nap</th></tr>
+    <tr th:each="car: ${offer}">
+        <td th:text= ${car.brand.name.getName} align="center"/>
+        <td th:text="${car.type}" align="center"/>
+        <td th:text="${car.category.getName}" align="center"/>
+        <td th:text="${car.fuel.getName}" align="center"/>
+        <td th:text="${car.price}" />
+    </tr>
+</table>
+</tbody>
+</html>

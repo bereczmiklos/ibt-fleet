@@ -59,6 +59,25 @@ public class FilterController {
         return FILTERPAGE;
     }
 
+    @GetMapping("/offer")
+    public String offers(@RequestParam(name = "selectedoffer") String offerType, Model model){
+
+        switch (offerType){
+            case "s":
+                model.addAttribute("offer", filterService.filterCarsByOffer(offerType));
+                break;
+            case "m":
+                model.addAttribute("offer", filterService.filterCarsByOffer(offerType));
+                break;
+            case "l":
+                model.addAttribute("offer", filterService.filterCarsByOffer(offerType));
+                break;
+            case "xl":
+                model.addAttribute("offer", filterService.filterCarsByOffer(offerType));
+                break;
+        }
+        return "offerlistingpage";
+    }
     private List<Car> bookedFilter(List<Car> unBookedCars){
 
         List<Car> bookedCarsInSession = rentService.getCarsInCart();
@@ -67,7 +86,6 @@ public class FilterController {
         if (bookedCarsInSession!=null){
             for (Car c : unBookedCars) {
                 if (!bookedCarsInSession.contains(c)){
-                    log.info("      not contains");
                     res.add(c);
                 }
             }

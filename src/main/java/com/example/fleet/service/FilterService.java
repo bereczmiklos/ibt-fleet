@@ -10,9 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import org.thymeleaf.util.ListUtils;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class FilterService {
@@ -65,6 +69,57 @@ public class FilterService {
             log.info("filter by no parameters");
             return carRepository.findAll();
         }
+    }
+
+    public List<Car> filterCarsByOffer(String offerType){
+
+        List<Car> cars = new ArrayList<>();
+        List<Car> vans = new ArrayList<>();
+        List<Car> minibus = new ArrayList<>();
+
+        //TODO: fix the number of cars
+        switch (offerType){
+            case "s":
+                cars = filterCars(null, "CAR", null).stream()
+                        .limit(5)
+                        .collect(Collectors.toList());
+                break;
+            case "m":
+                cars = filterCars(null, "CAR", null).stream()
+                        .limit(5)
+                        .collect(Collectors.toList());
+                vans = filterCars(null,"VAN",null).stream()
+                        .limit(5)
+                        .collect(Collectors.toList());
+                break;
+            case "l":
+                cars = filterCars(null, "CAR", null).stream()
+                        .limit(5)
+                        .collect(Collectors.toList());
+                vans = filterCars(null,"VAN",null).stream()
+                        .limit(5)
+                        .collect(Collectors.toList());
+                minibus = filterCars(null,"MINIBUS", null).stream()
+                        .limit(5)
+                        .collect(Collectors.toList());
+                break;
+            case "xl":
+                cars = filterCars(null, "CAR", null).stream()
+                        .limit(10)
+                        .collect(Collectors.toList());
+                vans = filterCars(null,"VAN",null).stream()
+                        .limit(5)
+                        .collect(Collectors.toList());
+                minibus = filterCars(null,"MINIBUS", null).stream()
+                        .limit(5)
+                        .collect(Collectors.toList());
+                break;
+        }
+
+        List<Car> res = Stream.of(cars,vans,minibus)
+                        .flatMap(x -> x.stream())
+                        .collect(Collectors.toList());
+        return res;
     }
 
     /**
