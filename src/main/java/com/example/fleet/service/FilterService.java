@@ -79,13 +79,13 @@ public class FilterService {
 
         //TODO: fix the number of cars
         switch (offerType){
-            case "s":
+            case "S":
                 cars = filterCars(null, "CAR", null).stream()
                         .filter(x->isAvailable(x) == true)
                         .limit(5)
                         .collect(Collectors.toList());
                 break;
-            case "m":
+            case "M":
                 cars = filterCars(null, "CAR", null).stream()
                         .filter(x->isAvailable(x) == true)
                         .limit(5)
@@ -95,7 +95,7 @@ public class FilterService {
                         .limit(1)
                         .collect(Collectors.toList());
                 break;
-            case "l":
+            case "L":
                 cars = filterCars(null, "CAR", null).stream()
                         .filter(x->isAvailable(x) == true)
                         .limit(5)
@@ -109,7 +109,7 @@ public class FilterService {
                         .limit(1)
                         .collect(Collectors.toList());
                 break;
-            case "xl":
+            case "XL":
                 cars = filterCars(null, "CAR", null).stream()
                         .filter(x->isAvailable(x) == true)
                         .limit(10)

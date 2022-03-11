@@ -61,23 +61,15 @@ public class FilterController {
 
     @GetMapping("/offer")
     public String offers(@RequestParam(name = "selectedoffer") String offerType, Model model){
-        List<Car> carsInOffer = new ArrayList<>();
 
-        switch (offerType){
-            case "s":
-                //carsInOffer = filterService.filterCarsByOffer(offerType));
-                model.addAttribute("offer", filterService.filterCarsByOffer(offerType));
-                break;
-            case "m":
-                model.addAttribute("offer", filterService.filterCarsByOffer(offerType));
-                break;
-            case "l":
-                model.addAttribute("offer", filterService.filterCarsByOffer(offerType));
-                break;
-            case "xl":
-                model.addAttribute("offer", filterService.filterCarsByOffer(offerType));
-                break;
+        List<Car> carsInOffer = filterService.filterCarsByOffer(offerType);
+
+        model.addAttribute("offer", carsInOffer);
+        model.addAttribute("offertype", offerType);
+        for (Car c : carsInOffer) {
+            rentService.carAddToCart(c.getPlate());
         }
+
         return "offerlistingpage";
     }
     private List<Car> bookedFilter(List<Car> unBookedCars){

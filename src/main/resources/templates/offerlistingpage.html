@@ -5,19 +5,27 @@
     <title>Ajánlatok</title>
 </head>
 <tbody>
-Ajánlat:<span th:text="${selectedoffer}" /></br>
-<table cellspacing="3">
-    <tr bgcolor="lightgray"><th>Márka</th><th>Típus</th><th>Kategória</th><th>Üzemanyag</th><th>Ár/nap</th></tr>
-    <tr th:each="car: ${offer}">
-        <td th:text= ${car.brand.name.getName} align="center"/>
-        <td th:text="${car.type}" align="center"/>
-        <td th:text="${car.category.getName}" align="center"/>
-        <td th:text="${car.fuel.getName}" align="center"/>
-        <td th:text="${car.price}" />
-    </tr>
+<font size="+1" style="bold">Ajánlat csomag: </font><span th:text="${offertype}" /></br>
+<span th:if="${offer.size} == 0"><h3>Sajnáljuk, nincs elegendő szabad autónk ehez a csomaghoz!</h3></span>
+<span th:unless="${offer.size} == 0">
+    <table cellspacing="3">
+        <tr bgcolor="lightgray"><th>Márka</th><th>Típus</th><th>Kategória</th><th>Üzemanyag</th><th>Ár/nap</th></tr>
+        <tr th:each="car: ${offer}">
+            <td th:text= ${car.brand.name.getName} align="center"/>
+            <td th:text="${car.type}" align="center"/>
+            <td th:text="${car.category.getName}" align="center"/>
+            <td th:text="${car.fuel.getName}" align="center"/>
+            <td th:text="${car.price}" />
+        </tr>
+
+    </table>
     <form action="rentoffer">
-        <input type="submit" value="megrendelem">
+        <table>
+            <tr><td>Bérlés kezdete:</td><td><input type="date" name="start_date"></td></tr>
+            <tr><td>Bérlés vége:</td><td><input type="date" name="end_date"></td></tr>
+            <tr><td><input type="submit" value="megrendelem"></td></tr>
+        </table>
     </form>
-</table>
+</span>
 </tbody>
 </html>

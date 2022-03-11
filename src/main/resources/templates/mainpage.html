@@ -11,10 +11,10 @@
 </form>
 <h1>Ajánlataink:</h1>
 <table>
-    <tr><th>S</th><td>5 db személyautó</td><td><a th:href="@{/offer(selectedoffer=s)}">megtekintés</a></td></tr>
-    <tr><th>M</th><td>5 db személyautó + 1 db kisteher</td><td><a th:href="@{/offer(selectedoffer=m)}">megtekintés</a></td></tr>
-    <tr><th>L</th><td>5 db személyautó + 1 db kisteher + 1 db minibusz</td><td><a th:href="@{/offer(selectedoffer=l)}">megtekintés</a></td></tr>
-    <tr><th>XL</th><td>10 db személyautó + 5 db kisteher + 1 db minibusz</td><td><a th:href="@{/offer(selectedoffer=xl)}">megtekintés</a></td></tr>
+    <tr><th>S</th><td>5 db személyautó</td><td><a th:href="@{/offer(selectedoffer=S)}">megtekintés</a></td></tr>
+    <tr><th>M</th><td>5 db személyautó + 1 db kisteher</td><td><a th:href="@{/offer(selectedoffer=M)}">megtekintés</a></td></tr>
+    <tr><th>L</th><td>5 db személyautó + 1 db kisteher + 1 db minibusz</td><td><a th:href="@{/offer(selectedoffer=L)}">megtekintés</a></td></tr>
+    <tr><th>XL</th><td>10 db személyautó + 5 db kisteher + 1 db minibusz</td><td><a th:href="@{/offer(selectedoffer=XL)}">megtekintés</a></td></tr>
 </table>
 <h1>Aktív bérléseid:</h1>
 <span th:if="${session.clientsrental.size} == 0">
