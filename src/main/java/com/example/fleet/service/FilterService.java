@@ -81,37 +81,46 @@ public class FilterService {
         switch (offerType){
             case "s":
                 cars = filterCars(null, "CAR", null).stream()
+                        .filter(x->isAvailable(x) == true)
                         .limit(5)
                         .collect(Collectors.toList());
                 break;
             case "m":
                 cars = filterCars(null, "CAR", null).stream()
+                        .filter(x->isAvailable(x) == true)
                         .limit(5)
                         .collect(Collectors.toList());
                 vans = filterCars(null,"VAN",null).stream()
-                        .limit(5)
+                        .filter(x->isAvailable(x) == true)
+                        .limit(1)
                         .collect(Collectors.toList());
                 break;
             case "l":
                 cars = filterCars(null, "CAR", null).stream()
+                        .filter(x->isAvailable(x) == true)
                         .limit(5)
                         .collect(Collectors.toList());
                 vans = filterCars(null,"VAN",null).stream()
-                        .limit(5)
+                        .filter(x->isAvailable(x) == true)
+                        .limit(1)
                         .collect(Collectors.toList());
                 minibus = filterCars(null,"MINIBUS", null).stream()
-                        .limit(5)
+                        .filter(x->isAvailable(x) == true)
+                        .limit(1)
                         .collect(Collectors.toList());
                 break;
             case "xl":
                 cars = filterCars(null, "CAR", null).stream()
+                        .filter(x->isAvailable(x) == true)
                         .limit(10)
                         .collect(Collectors.toList());
                 vans = filterCars(null,"VAN",null).stream()
+                        .filter(x->isAvailable(x) == true)
                         .limit(5)
                         .collect(Collectors.toList());
                 minibus = filterCars(null,"MINIBUS", null).stream()
-                        .limit(5)
+                        .filter(x->isAvailable(x) == true)
+                        .limit(1)
                         .collect(Collectors.toList());
                 break;
         }

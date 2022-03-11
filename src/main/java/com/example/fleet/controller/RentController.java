@@ -52,6 +52,12 @@ public class RentController {
         }
     }
 
+    @GetMapping("/rentoffer")
+    public String rentOffer(){
+
+        return MAINPAGE;
+    }
+
     @GetMapping("/resignation")
     public String rentResignation(@RequestParam("resignatedrentid") int rentId,
                                   HttpSession session){

@@ -15,6 +15,9 @@ Ajánlat:<span th:text="${selectedoffer}" /></br>
         <td th:text="${car.fuel.getName}" align="center"/>
         <td th:text="${car.price}" />
     </tr>
+    <form action="rentoffer">
+        <input type="submit" value="megrendelem">
+    </form>
 </table>
 </tbody>
 </html>

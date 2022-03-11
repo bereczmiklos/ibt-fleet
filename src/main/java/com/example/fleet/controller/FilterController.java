@@ -61,9 +61,11 @@ public class FilterController {
 
     @GetMapping("/offer")
     public String offers(@RequestParam(name = "selectedoffer") String offerType, Model model){
+        List<Car> carsInOffer = new ArrayList<>();
 
         switch (offerType){
             case "s":
+                //carsInOffer = filterService.filterCarsByOffer(offerType));
                 model.addAttribute("offer", filterService.filterCarsByOffer(offerType));
                 break;
             case "m":
