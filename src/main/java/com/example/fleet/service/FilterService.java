@@ -20,15 +20,12 @@ import java.util.stream.Stream;
 
 @Service
 public class FilterService {
-
     private static final Logger log = LoggerFactory.getLogger(FilterService.class);
 
     @Autowired
     private BrandRepository brandRepository;
-
     @Autowired
     private CarRepository carRepository;
-
     @Autowired
     private RentedCarRepository rentedCarRepository;
 
@@ -72,12 +69,10 @@ public class FilterService {
     }
 
     public List<Car> filterCarsByOffer(String offerType){
-
         List<Car> cars = new ArrayList<>();
         List<Car> vans = new ArrayList<>();
         List<Car> minibus = new ArrayList<>();
 
-        //TODO: fix the number of cars
         switch (offerType){
             case "S":
                 cars = filterCars(null, "CAR", null).stream()
@@ -125,6 +120,7 @@ public class FilterService {
                 break;
         }
 
+        //Mergeing lists
         List<Car> res = Stream.of(cars,vans,minibus)
                         .flatMap(x -> x.stream())
                         .collect(Collectors.toList());
@@ -140,6 +136,11 @@ public class FilterService {
         return carRepository.findAll();
     }
 
+    /**
+     * Filtering cars that aren't in rented cars
+     * @param filtered: filtered car list
+     * @return
+     */
     public List<Car> availableFilter(List<Car> filtered)
     {
         List<Car> available = new ArrayList<>();

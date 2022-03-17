@@ -42,12 +42,13 @@ public class FilterController {
         filteredCars = filterService.filterCars(brandName, category, fuelType);
         model.addAttribute(FILTEREDCARS,filterService.availableFilter(filteredCars));
 
-        //Booking:
         //Put back into request scope
         model.addAttribute("brandfilter", brandName);
         model.addAttribute("categoryfilter", category);
         model.addAttribute("fuelfilter", fuelType);
 
+        //Booking:
+        //plate param only comes from link on filterpage
         if (plate != null){
             rentService.carAddToCart(plate);
             session.setAttribute("bookedcars", rentService.getCarsInCart());
@@ -61,19 +62,20 @@ public class FilterController {
 
     @GetMapping("/offer")
     public String offers(@RequestParam(name = "selectedoffer") String offerType, Model model){
-
         List<Car> carsInOffer = filterService.filterCarsByOffer(offerType);
 
         model.addAttribute("offer", carsInOffer);
         model.addAttribute("offertype", offerType);
+
         for (Car c : carsInOffer) {
             rentService.carAddToCart(c.getPlate());
         }
 
         return "offerlistingpage";
     }
-    private List<Car> bookedFilter(List<Car> unBookedCars){
 
+    //filtering the cars that are already in the cart
+    private List<Car> bookedFilter(List<Car> unBookedCars){
         List<Car> bookedCarsInSession = rentService.getCarsInCart();
         List<Car> res = new ArrayList<>();
 
