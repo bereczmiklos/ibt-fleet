@@ -52,28 +52,6 @@ public class RentController {
         }
     }
 
-    @GetMapping("/rentoffer")
-    public String rentOffer(@RequestParam(name="start_date") String startDate,
-                            @RequestParam(name="end_date") String endDate,
-                            HttpSession session){
-        try{
-            LocalDate start = LocalDate.parse(startDate);
-            LocalDate end = LocalDate.parse(endDate);
-
-            Client client = (Client)session.getAttribute("clientlogined");
-            clientId = client.getClient_id();
-
-            rentService.newRent(clientId, start, end);
-
-            session.setAttribute(CLIENTSRENTAL, rentService.getAllRentsByClient(clientId));
-
-            return MAINPAGE;
-        }
-        catch(java.time.DateTimeException e){
-            return "invaliddate";
-        }
-    }
-
     @GetMapping("/resignation")
     public String rentResignation(@RequestParam("resignatedrentid") int rentId,
                                   HttpSession session){
