@@ -4,11 +4,14 @@ import com.example.fleet.model.*;
 import com.example.fleet.repository.CarRepository;
 import com.example.fleet.repository.ClientRepository;
 import com.example.fleet.repository.RentalRepository;
+import com.example.fleet.repository.RentedCarRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
@@ -25,6 +28,11 @@ public class RentServiceTest {
     CarRepository carRepository;
     @Mock
     ClientRepository clientRepository;
+    @Mock
+    RentedCarRepository rentedCarRepository;
+    @Spy
+    BookedCars bookedCars;
+
     @InjectMocks
     RentService rentService = new RentService();
 
@@ -37,7 +45,9 @@ public class RentServiceTest {
 
         car = new Car(brand, CarCategory.CAR, "test", "AAA-123", CarFuelType.PETROL, 20000);
         car.setId(1);
-        //TODO: carRepository.save(car);
+
+        //avoid strict stubbing?
+        Mockito.lenient().when(carRepository.findByPlate("AAA-123")).thenReturn(car);
 
         client = new Client("testclient", "tc@tc.com");
     }
@@ -46,8 +56,7 @@ public class RentServiceTest {
     public void TestNewRentWithCorrectParams() {
 
         rentService.newRent(client.getClient_id(), LocalDate.parse("2000-01-01"),
-                 LocalDate.parse(
-                "2000-02-01"));
+                 LocalDate.parse("2000-02-01"));
 
         assertNotNull(rentalRepository.findByClient(client),"New rent added with correct " +
                 "params");

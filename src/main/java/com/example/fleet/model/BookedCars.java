@@ -1,24 +1,18 @@
 package com.example.fleet.model;
 
 import com.example.fleet.repository.CarRepository;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
+@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class BookedCars {
-    private static BookedCars CART;
+
     private List<Car> bookedCars = new ArrayList<>();
-
-    private BookedCars(){
-
-    }
-
-    public static BookedCars getInstance(){
-        if (CART == null){
-            CART = new BookedCars();
-        }
-        return CART;
-    }
 
     public List<Car> getBookedCars() {
         return bookedCars;
@@ -46,11 +40,6 @@ public class BookedCars {
     }
 
     public boolean isContainsCar(Car car){
-
-            for (Car c: bookedCars) {
-                if (car == c)
-                    return true;
-            }
-        return false;
+        return bookedCars.contains(car);
     }
 }

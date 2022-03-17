@@ -27,8 +27,9 @@ public class RentService{
     private RentedCarRepository rentedCarRepository;
     @Autowired
     private CarRepository carRepository;
+    @Autowired
+    private BookedCars cart;
 
-    private BookedCars cart = BookedCars.getInstance();
 
     /**
      * Add cars by plate numbers to BookedCars instance
