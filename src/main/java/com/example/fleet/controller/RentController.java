@@ -16,7 +16,6 @@ import java.util.List;
 @Controller
 public class RentController {
 
-    
     public static final String FINALIZATION = "finalization";
     public static final String BOOKEDCARS = "bookedcars";
     public static final String MAINPAGE = "mainpage";
@@ -50,6 +49,30 @@ public class RentController {
         catch(java.time.DateTimeException e){
             return "invaliddate";
         }
+    }
+
+    /**
+     * Handleing new rentals separatly: in case of renting an offer, the cart must be fill up
+     * after clicking on the button.
+     * @param startDate
+     * @param endDate
+     * @param session
+     * @return
+     */
+    @GetMapping("/rentoffer")
+    public String rentOffer(@RequestParam(name="start_date") String startDate,
+                            @RequestParam(name="end_date") String endDate,
+                            HttpSession session){
+
+        List<Car> carsInOffer = (List<Car>)session.getAttribute("offer");
+
+        for (Car c : carsInOffer) {
+            rentService.carAddToCart(c.getPlate());
+        }
+
+        rent(startDate,endDate,session); //creating a rental
+        session.removeAttribute("offer"); //clear the offer list in offerlistingpage
+        return MAINPAGE;
     }
 
     @GetMapping("/resignation")

@@ -61,15 +61,13 @@ public class FilterController {
     }
 
     @GetMapping("/offer")
-    public String offers(@RequestParam(name = "selectedoffer") String offerType, Model model){
+    public String offers(@RequestParam(name = "selectedoffer") String offerType,
+                         Model model,
+                         HttpSession session){
         List<Car> carsInOffer = filterService.filterCarsByOffer(offerType);
 
-        model.addAttribute("offer", carsInOffer);
+        session.setAttribute("offer", carsInOffer);
         model.addAttribute("offertype", offerType);
-
-        for (Car c : carsInOffer) {
-            rentService.carAddToCart(c.getPlate());
-        }
 
         return "offerlistingpage";
     }

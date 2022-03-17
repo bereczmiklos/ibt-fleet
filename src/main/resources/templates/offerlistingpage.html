@@ -6,11 +6,11 @@
 </head>
 <tbody>
 <font size="+1" style="bold">Ajánlat csomag: </font><span th:text="${offertype}" /></br>
-<span th:if="${offer.size} == 0"><h3>Sajnáljuk, nincs elegendő szabad autónk ehez a csomaghoz!</h3></span>
-<span th:unless="${offer.size} == 0">
+<span th:if="${session.offer.size} == 0"><h3>Sajnáljuk, nincs elegendő szabad autónk ehez a csomaghoz!</h3></span>
+<span th:unless="${session.offer.size} == 0">
     <table cellspacing="3">
         <tr bgcolor="lightgray"><th>Márka</th><th>Típus</th><th>Kategória</th><th>Üzemanyag</th><th>Ár/nap</th></tr>
-        <tr th:each="car: ${offer}">
+        <tr th:each="car: ${session.offer}">
             <td th:text= ${car.brand.name.getName} align="center"/>
             <td th:text="${car.type}" align="center"/>
             <td th:text="${car.category.getName}" align="center"/>
@@ -18,7 +18,7 @@
             <td th:text="${car.price}" />
         </tr>
     </table><br>
-    <form action="rent">
+    <form action="rentoffer">
         <table>
             <tr><td>Bérlés kezdete:</td><td><input type="date" name="start_date"></td></tr>
             <tr><td>Bérlés vége:</td><td><input type="date" name="end_date"></td></tr>
