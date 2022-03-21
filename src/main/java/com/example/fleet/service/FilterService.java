@@ -30,7 +30,7 @@ public class FilterService {
     private RentedCarRepository rentedCarRepository;
 
     /**
-     * Filter by only one parameter, default: findAll
+     * Filter by parameters, default: findAll
      *
      * @param brandName
      * @param category

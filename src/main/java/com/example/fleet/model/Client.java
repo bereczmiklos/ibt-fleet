@@ -12,6 +12,7 @@ public class Client {
     private int id;
     private String name;
     private String emailAddress;
+    private String password;
 
     //REVERSE NAVIGATION PROPERTY?
     @OneToMany(mappedBy = "client")
@@ -20,9 +21,10 @@ public class Client {
     public Client() {
     }
 
-    public Client(String name, String email) {
+    public Client(String name, String email,String password) {
         this.name = name;
         this.emailAddress = email;
+        this.password = password;
     }
 
     public int getClient_id() {
@@ -39,6 +41,10 @@ public class Client {
 
     public String getEmailAddress() {
         return emailAddress;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     @Override

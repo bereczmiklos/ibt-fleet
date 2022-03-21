@@ -5,6 +5,7 @@ import com.example.fleet.repository.CarRepository;
 import com.example.fleet.repository.ClientRepository;
 import com.example.fleet.repository.RentalRepository;
 import com.example.fleet.repository.RentedCarRepository;
+import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,9 +14,12 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -49,7 +53,7 @@ public class RentServiceTest {
         //avoid strict stubbing?
         Mockito.lenient().when(carRepository.findByPlate("AAA-123")).thenReturn(car);
 
-        client = new Client("testclient", "tc@tc.com");
+        client = new Client("testclient", "tc@tc.com","123");
     }
 
     @Test

@@ -32,11 +32,13 @@ public class LoginController {
     private Client clientLogined;
 
     @PostMapping("/login")
-    public String login(@RequestParam(name = "emailaddress") String email, HttpSession session){
+    public String login(@RequestParam(name = "emailaddress") String email,
+                        @RequestParam(name="password") String password,
+                        HttpSession session){
 
         clientLogined = loginService.clientLogin(email);
 
-        if (clientLogined != null){
+        if (clientLogined != null && clientLogined.getPassword().equals(password)){
             session.setAttribute(CLIENTLOGINED, clientLogined);
 
             List<Rental> clientsRentals = rentService.getAllRentsByClient(clientLogined.getClient_id());
@@ -70,11 +72,12 @@ public class LoginController {
     @GetMapping("/register")
     public String register(@RequestParam(name = "name") String name,
                            @RequestParam(name = "email") String email,
+                           @RequestParam(name = "password") String password,
                            HttpSession session){
 
         session.removeAttribute(CLIENTLOGINED);
 
-        loginService.registerNewClient(name,email);
+        loginService.registerNewClient(name,email,password);
         clientLogined = loginService.clientLogin(email);
         session.setAttribute(CLIENTLOGINED, clientLogined);
 
@@ -91,5 +94,4 @@ public class LoginController {
 
         return MAINPAGE;
     }
-
 }

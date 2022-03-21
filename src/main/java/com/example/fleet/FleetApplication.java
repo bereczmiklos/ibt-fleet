@@ -134,9 +134,9 @@ public class FleetApplication {
 				volkswagenList.add(v6);
 
 				//CLIENT DB
-				Client c1 = new Client("Kovács és társa bt","kovacsbt@kovacsbt.hu");
-				Client c2 = new Client("Pizza Hut", "pizzahut@ph.hu");
-				Client c3 = new Client("Food Panda", "foodpanda@gmail.com");
+				Client c1 = new Client("Kovács és társa bt","kovacsbt@kovacsbt.hu","123");
+				Client c2 = new Client("Pizza Hut", "pizzahut@ph.hu","123");
+				Client c3 = new Client("Food Panda", "foodpanda@gmail.com","123");
 
 				//SAVE TO DB
 				brandRepository.save(ford);
