@@ -16,9 +16,9 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-public class LoginController {
+public class MainController {
 
-    private static final Logger log = LoggerFactory.getLogger(LoginController.class);
+    private static final Logger log = LoggerFactory.getLogger(MainController.class);
 
     public static final String MAINPAGE = "mainpage";
     public static final String CLIENTSRENTAL = "clientsrental";
