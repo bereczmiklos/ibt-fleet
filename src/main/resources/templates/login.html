@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>FlottaMester</title>
 </head>
 <body>
 <form action="login" method="post">
+    <div th:if="${param.error}">
+        Rossz email-cím vagy jelszó!
+    </div>
+    <div th:if="${param.logout}">
+        Sikeres kijelentkezés!
+    </div>
     <h2>Belépés</h2>
     <table>
         <tr><td>Email: </td><td><input type="text" name="emailaddress"></td></tr>
