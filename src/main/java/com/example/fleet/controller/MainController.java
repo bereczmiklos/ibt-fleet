@@ -3,15 +3,15 @@ package com.example.fleet.controller;
 import com.example.fleet.model.Client;
 import com.example.fleet.model.Rental;
 import com.example.fleet.service.LoginService;
+import com.example.fleet.service.MyUserDetailsService;
 import com.example.fleet.service.RentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -28,10 +28,12 @@ public class MainController {
     private LoginService loginService;
     @Autowired
     private RentService rentService;
+    @Autowired
+    private MyUserDetailsService myUserDetailsService;
 
     private Client clientLogined;
 
-    @PostMapping("/login")
+    @GetMapping("/login")
     public String login(@RequestParam(name = "emailaddress") String email,
                         @RequestParam(name="password") String password,
                         HttpSession session){
@@ -51,6 +53,7 @@ public class MainController {
             return MAINPAGE;
         }
         else return "invalid";
+
     }
 
     @GetMapping("/logout")
@@ -62,11 +65,6 @@ public class MainController {
                 ", name=" + clientLogined.getName() + "}");
 
         return "login";
-    }
-
-    @GetMapping("/registration")
-    public String registration(){
-        return "registerpage";
     }
 
     @GetMapping("/register")
