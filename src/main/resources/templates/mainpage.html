@@ -6,7 +6,7 @@
 </head>
 <tbody>
 <font size="+1" style="bold">Bejelentkezve: </font><span th:text="${session.clientlogined.getName}" /></br>
-<form action="logout">
+<form action="@{/logout}">
     <input type="submit" value="kijelentkezés">
 </form>
 <h1>Ajánlataink:</h1>
