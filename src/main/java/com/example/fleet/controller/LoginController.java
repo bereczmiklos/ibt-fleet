@@ -20,7 +20,7 @@ public class LoginController {
 
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
-    public static final String MAINPAGE = "mainpage";
+    public static final String MAINPAGE = "mainpage.html";
     public static final String CLIENTSRENTAL = "clientsrental";
     public static final String CLIENTLOGINED = "clientlogined";
 

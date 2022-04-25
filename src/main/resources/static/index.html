@@ -3,10 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>FlottaMester</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 <form action="login" method="post">
-    <h2>Belépés</h2>
+    <div id="headerdiv">
+        <h2>FlottaMester</h2>
+    </div>
+
+    <div id="navigatordiv">
+        <a href="/">Belépés</a>
+        <a href="/reg">Regisztráció</a>
+    </div>
+
     <table>
         <tr><td>Email: </td><td><input type="text" name="emailaddress"></td></tr>
         <tr><td>Jelszó: </td><td><input type="password" name="password"></td></tr>
