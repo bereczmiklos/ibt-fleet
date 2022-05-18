@@ -3,27 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Ajánlatok</title>
+    <link href="style.css" rel="stylesheet"/>
 </head>
 <tbody>
-<font size="+1" style="bold">Ajánlat csomag: </font><span th:text="${offertype}" /></br>
+<div id="headerdiv">
+    <h2>FlottaMester</h2>
+</div>
+
+<div id="navigatordiv">
+    <a href="/logout">Kijelentkezés</a>
+    <a href="/main">Főoldal</a>
+</div>
+<font size="+1" style="bold">Ajánlat csomag: </font><span th:text="${offertype}"/></br>
 <span th:if="${session.offer.size} == 0"><h3>Sajnáljuk, nincs elegendő szabad autónk ehez a csomaghoz!</h3></span>
 <span th:unless="${session.offer.size} == 0">
-    <table cellspacing="3">
-        <tr bgcolor="lightgray"><th>Márka</th><th>Típus</th><th>Kategória</th><th>Üzemanyag</th><th>Ár/nap</th></tr>
+    <table class="table">
+        <tr><th>Márka</th><th>Típus</th><th>Kategória</th><th>Üzemanyag</th><th>Ár/nap</th></tr>
         <tr th:each="car: ${session.offer}">
-            <td th:text= ${car.brand.name.getName} align="center"/>
-            <td th:text="${car.type}" align="center"/>
-            <td th:text="${car.category.getName}" align="center"/>
-            <td th:text="${car.fuel.getName}" align="center"/>
-            <td th:text="${car.price}" />
+            <td align="center" th:text=${car.brand.name.getName}/>
+            <td align="center" th:text="${car.type}"/>
+            <td align="center" th:text="${car.category.getName}"/>
+            <td align="center" th:text="${car.fuel.getName}"/>
+            <td th:text="${car.price}"/>
         </tr>
     </table><br>
     <form action="rentoffer">
         <table>
-            <tr><td>Bérlés kezdete:</td><td><input type="date" name="start_date"></td></tr>
-            <tr><td>Bérlés vége:</td><td><input type="date" name="end_date"></td></tr>
-            <tr><td><input type="submit" value="megrendelem"></td></tr>
+            <tr><td>Bérlés kezdete:</td><td><input name="start_date" type="date"></td></tr>
+            <tr><td>Bérlés vége:</td><td><input name="end_date" type="date"></td></tr>
         </table>
+        <div class="centercontext">
+        <input class="button" type="submit" value="megrendelem">
+        </div>
     </form>
 </span>
 </tbody>

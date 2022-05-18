@@ -3,52 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <title>Szűrés</title>
+    <link href="style.css" rel="stylesheet"/>
 </head>
 <tbody>
+
+<div id="headerdiv">
+    <h2>FlottaMester</h2>
+</div>
+
+<div id="navigatordiv">
+    <a href="/logout">Kijelentkezés</a>
+    <a href="/main">Főoldal</a>
+</div>
+
 <form action="filter">
-    <table>
+    <table class="table">
         <tr>
-            <th>Márka</th><th>Kategória</th><th>Üzemanyag</th>
+            <th>Márka</th>
+            <th>Kategória</th>
+            <th>Üzemanyag</th>
         </tr>
         <tr>
-            <td><select name="brandfilter" id="brand-select">
-                <option value="" selected="true">Összes</option>
+            <td><select id="brand-select" name="brandfilter">
+                <option selected="true" value="">Összes</option>
                 <option value="MERCEDES">Mercedes</option>
                 <option value="FORD">Ford</option>
                 <option value="TOYOTA">Toyota</option>
                 <option value="VOLKSWAGEN">Volkswagen</option>
             </select></td>
-            <td><select name="categoryfilter" id="category-select">
-                <option value="" selected="true">Összes</option>
+            <td><select id="category-select" name="categoryfilter">
+                <option selected="true" value="">Összes</option>
                 <option value="CAR">Személyautó</option>
                 <option value="VAN">Kisteher</option>
                 <option value="MINIBUS">Kisbusz</option>
             </select></td>
-            <td><select name="fuelfilter" id="fuel-select">
-                <option value="" selected="true">Mindegy</option>
+            <td><select id="fuel-select" name="fuelfilter">
+                <option selected="true" value="">Mindegy</option>
                 <option value="PETROL">Benzin</option>
                 <option value="DIESEL">Dízel</option>
                 <option value="ELECTRIC">Elektromos</option>
             </select></td>
-            <td>
-                <input type="submit" value="Szűrés">
-            </td>
         </tr>
     </table>
-</form><br>
+    <div class="centercontext">
+        <input class="button" type="submit" value="Szűrés">
+    </div>
+</form>
+
+<form action="finalrent">
+    <div class="centercontext">
+        <h3>Kiválasztott járművek száma:
+        <span th:if="${session.countofcarsincart} == null" th:text="0"/>
+        <span th:text="${session.countofcarsincart}" th:unless="${session.countofcarsincart} == 0"/></h3>
+        <input class="button" type="submit" value="Véglegesítés">
+    </div>
+</form>
+
 <span th:if="${filteredcars.size == 0}">
     <h3>Jelenleg nincs elérhető autónk!</h3>
 </span>
 <span th:unless="${filteredcars.size == 0}">
 <form action="filter">
-    <table cellspacing="3">
-        <tr bgcolor="lightgray"><th>Márka</th><th>Típus</th><th>Kategória</th><th>Üzemanyag</th><th>Ár/nap</th></tr>
+    <table class="table">
+        <tr><th>Márka</th><th>Típus</th><th>Kategória</th><th>Üzemanyag</th><th>Ár/nap</th></tr>
         <tr th:each="car: ${filteredcars}">
-            <td th:text= ${car.brand.name.getName} align="center"/>
-            <td th:text="${car.type}" align="center"/>
-            <td th:text="${car.category.getName}" align="center"/>
-            <td th:text="${car.fuel.getName}" align="center"/>
-            <td th:text="${car.price}" />
+            <td align="center" th:text=${car.brand.name.getName}/>
+            <td align="center" th:text="${car.type}"/>
+            <td align="center" th:text="${car.category.getName}"/>
+            <td align="center" th:text="${car.fuel.getName}"/>
+            <td th:text="${car.price}"/>
             <td>
                 <a th:href="@{/filter(cartocart=${car.plate},
                         brandfilter=${brandfilter},
@@ -56,18 +79,9 @@
                         fuelfilter=${fuelfilter})}">kosárba</a>
             </td>
         </tr>
-    </table><br>
+    </table>
 </form>
 </span>
-<form action="finalrent">
-    <table>
-        <td><h3>Kiválasztott járművek száma:</h3></td>
-        <td>
-            <span th:if="${session.countofcarsincart} == null" th:text="0"/>
-            <span th:unless="${session.countofcarsincart} == 0" th:text="${session.countofcarsincart}"/>
-        </td>
-    </table>
-    <input type="submit" value="Véglegesítés">
-</form>
+
 </tbody>
 </html>

@@ -1,4 +1,4 @@
-package com.example.fleet.service;
+/*package com.example.fleet.service;
 
 import com.example.fleet.model.*;
 import com.example.fleet.repository.CarRepository;
@@ -81,4 +81,4 @@ public class RentServiceTest {
         rentService.carAddToCart(car.getPlate());
         assertNotNull(rentService.getCarsInCart(),"Car added to cart");
     }
-}
+}*/
