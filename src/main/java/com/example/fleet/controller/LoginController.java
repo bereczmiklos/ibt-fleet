@@ -64,11 +64,6 @@ public class LoginController {
         return "login";
     }
 
-    @GetMapping("/registration")
-    public String registration(){
-        return "registerpage";
-    }
-
     @GetMapping("/register")
     public String register(@RequestParam(name = "name") String name,
                            @RequestParam(name = "email") String email,
