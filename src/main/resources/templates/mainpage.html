@@ -7,16 +7,23 @@
 </head>
 <tbody>
 <div id="headerdiv">
-    <h2>FlottaMester</h2>
+
+
 </div>
+<selection class="layout">
+    <div class="headerdiv">
+        <h2>FlottaMester</h2>
+    </div>
+    <div class="logineduserdiv">
+        <h2>Bejelentkezve: <span th:text="${session.clientlogined.getName}"/></h2>
+    </div>
+</selection>
 
 <div id="navigatordiv">
     <a href="/logout">Kijelentkezés</a>
     <a href="/filter">Új bérlés</a>
     <a href="/offers">Ajánlatok</a>
 </div>
-
-<font size="+1" style="bold">Bejelentkezve: </font><span th:text="${session.clientlogined.getName}"/></br>
 
 <h1>Aktív bérléseid:</h1>
 <span th:if="${session.clientsrental.size} == 0">

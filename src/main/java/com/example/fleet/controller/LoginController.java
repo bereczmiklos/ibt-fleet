@@ -23,6 +23,7 @@ public class LoginController {
     public static final String MAINPAGE = "mainpage.html";
     public static final String CLIENTSRENTAL = "clientsrental";
     public static final String CLIENTLOGINED = "clientlogined";
+    private List<Rental> clientsRentals;
 
     @Autowired
     private LoginService loginService;
@@ -41,7 +42,7 @@ public class LoginController {
         if (clientLogined != null && clientLogined.getPassword().equals(password)){
             session.setAttribute(CLIENTLOGINED, clientLogined);
 
-            List<Rental> clientsRentals = rentService.getAllRentsByClient(clientLogined.getClient_id());
+            clientsRentals = rentService.getAllRentsByClient(clientLogined.getClient_id());
             session.setAttribute(CLIENTSRENTAL, clientsRentals);
 
             log.info("client login: {id=" + clientLogined.getClient_id() +
@@ -61,7 +62,7 @@ public class LoginController {
         log.info("client logout: {id=" + clientLogined.getClient_id() +
                 ", name=" + clientLogined.getName() + "}");
 
-        return "login";
+        return "/";
     }
 
     @GetMapping("/register")
@@ -87,6 +88,18 @@ public class LoginController {
                 ", name=" + clientLogined.getName() +
                 ", active rentals=" + clientsRentals.size() +"}");
 
+        return MAINPAGE;
+    }
+
+    @GetMapping("/offers")
+    public String offers(){
+        return "offerspage.html";
+    }
+
+    @GetMapping("/main")
+    public String backToMain(HttpSession session){
+        session.setAttribute(CLIENTLOGINED, clientLogined);
+        session.setAttribute(CLIENTSRENTAL, clientsRentals);
         return MAINPAGE;
     }
 }

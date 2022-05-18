@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajánlatok</title>
+    <link href="style.css" rel="stylesheet"/>
+</head>
+<body>
+<selection class="layout">
+    <div class="headerdiv">
+        <h2>FlottaMester</h2>
+    </div>
+    <div class="logineduserdiv">
+        <h2>Bejelentkezve: <span th:text="${session.clientlogined.getName}"/></h2>
+    </div>
+</selection>
+
+<div id="navigatordiv">
+    <a href="/logout">Kijelentkezés</a>
+    <a href="/main">Főoldal</a>
+</div>
+<h1>Ajánlataink:</h1>
+<table>
+    <tr>
+        <th>S</th>
+        <td><a th:href="@{/offer(selectedoffer=S)}">5 db személyautó</a></td>
+    </tr>
+    <tr>
+        <th>M</th>
+        <td><a th:href="@{/offer(selectedoffer=M)}">5 db személyautó + 1 db kisteher</a></td>
+    </tr>
+    <tr>
+        <th>L</th>
+        <td><a th:href="@{/offer(selectedoffer=L)}">5 db személyautó + 1 db kisteher + 1 db minibusz</a></td>
+    </tr>
+    <tr>
+        <th>XL</th>
+        <td><a th:href="@{/offer(selectedoffer=XL)}">10 db személyautó + 5 db kisteher + 1 db minibusz</a></td>
+    </tr>
+</table>
+</body>
+</html>

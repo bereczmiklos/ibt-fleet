@@ -6,9 +6,14 @@
     <link href="style.css" rel="stylesheet"/>
 </head>
 <tbody>
-<div id="headerdiv">
-    <h2>FlottaMester</h2>
-</div>
+<selection class="layout">
+    <div class="headerdiv">
+        <h2>FlottaMester</h2>
+    </div>
+    <div class="logineduserdiv">
+        <h2>Bejelentkezve: <span th:text="${session.clientlogined.getName}"/></h2>
+    </div>
+</selection>
 
 <div id="navigatordiv">
     <a href="/logout">Kijelentkezés</a>
