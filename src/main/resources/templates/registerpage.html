@@ -2,39 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Regisztráció</title>
-    <link href="style.css" rel="stylesheet"/>
+    <link href="headerstyle.css" rel="stylesheet"/>
+    <link href="navigatorstyle.css" rel="stylesheet"/>
+    <link href="tablestyle.css" rel="stylesheet"/>
+    <link href="buttonstyle.css" rel="stylesheet"/>
+    <link href="loginformstyle.css" rel="stylesheet"/>
+    <title>FlottaMester</title>
 </head>
 <body>
-<form action="register">
-    <selection class="layout">
-        <div class="headerdiv">
-            <h2>FlottaMester</h2>
-        </div>
-    </selection>
 
-    <div id="navigatordiv">
-        <a href="/">Belépés</a>
-        <a href="/registerpage.html">Regisztráció</a>
+<selection class="layout">
+    <div class="headerdiv">
+        <h2>FlottaMester</h2>
     </div>
-    <h2>Regisztráció</h2>
-    <table>
-        <tr>
-            <td>Név:</td>
-            <td><input name="name" type="text"></td>
-        </tr>
-        <tr>
-            <td>Email cím:</td>
-            <td><input name="email" type="text"></td>
-        </tr>
-        <tr>
-            <td>Jelszó:</td>
-            <td><input name="password" type="password"></td>
-        </tr>
-        <tr>
-            <td><input type="submit" value="Regisztrálok"></td>
-        </tr>
-    </table>
-</form>
+</selection>
+
+<div id="navigatordiv">
+    <a href="/">Belépés</a>
+    <a href="/register">Regisztráció</a>
+</div>
+
+<div class="wrapper">
+    <form class="loginform" action="register">
+        <h2>Regisztráció</h2>
+        <input type="text" name="name"  placeholder="Név">
+        <input type="text" name="email" placeholder="Email">
+        <input type="password" name="password" placeholder="Jelszó">
+        <input class="button" type="submit" value="Regisztrálok">
+    </form>
+</div>
+
 </body>
 </html>

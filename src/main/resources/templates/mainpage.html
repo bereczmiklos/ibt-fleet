@@ -2,8 +2,11 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="headerstyle.css" />
+    <link rel="stylesheet" href="navigatorstyle.css" />
+    <link rel="stylesheet" href="tablestyle.css" />
+    <link rel="stylesheet" href="buttonstyle.css" />
     <title>Főoldal</title>
-    <link href="style.css" rel="stylesheet"/>
 </head>
 <tbody>
 <div id="headerdiv">
@@ -30,7 +33,7 @@
         <h3>jelenleg nincs aktív bérlésed!</h3>
     </span>
 <span th:unless="${session.clientsrental.size} == 0">
-        <table class="table">
+        <table class="fulltable">
             <tr><th>járművek száma</th><th>kezdete</th><th>vége</th><th>Ár</th></tr>
             <tr th:each="rent: ${session.clientsrental}">
                 <td th:text=${rent.rentedCars.size}/>

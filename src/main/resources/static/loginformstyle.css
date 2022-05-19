@@ -1,0 +1,36 @@
+.wrapper{
+  margin: auto;
+  margin-top:30px;
+  width: 30%;
+  padding: 10px;
+  /*background-color: deepskyblue;*/
+}
+
+.loginform{
+  padding: 15px;
+  background-color: #f2f2f2;
+  text-align: center;
+  border-style: solid;
+  border-width:5px;
+  border-color:deepskyblue;
+  border-radius: 25px;
+}
+
+.loginform input{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px deepskyblue;
+    border-radius: 4px;
+    border-radius: 25px;
+}
+
+.loginform h2{
+    padding: 10px 10px;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: #000;
+}

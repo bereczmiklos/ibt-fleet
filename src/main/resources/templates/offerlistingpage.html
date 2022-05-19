@@ -2,8 +2,11 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="headerstyle.css" />
+    <link rel="stylesheet" href="navigatorstyle.css" />
+    <link rel="stylesheet" href="tablestyle.css" />
+    <link rel="stylesheet" href="buttonstyle.css" />
     <title>Ajánlatok</title>
-    <link href="style.css" rel="stylesheet"/>
 </head>
 <tbody>
 <selection class="layout">
@@ -22,7 +25,7 @@
 <font size="+1" style="bold">Ajánlat csomag: </font><span th:text="${offertype}"/></br>
 <span th:if="${session.offer.size} == 0"><h3>Sajnáljuk, nincs elegendő szabad autónk ehez a csomaghoz!</h3></span>
 <span th:unless="${session.offer.size} == 0">
-    <table class="table">
+    <table class="fulltable">
         <tr><th>Márka</th><th>Típus</th><th>Kategória</th><th>Üzemanyag</th><th>Ár/nap</th></tr>
         <tr th:each="car: ${session.offer}">
             <td align="center" th:text=${car.brand.name.getName}/>

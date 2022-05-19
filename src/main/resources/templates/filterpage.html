@@ -2,8 +2,12 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <link href="headerstyle.css" rel="stylesheet"/>
+    <link href="navigatorstyle.css" rel="stylesheet"/>
+    <link href="tablestyle.css" rel="stylesheet"/>
+    <link href="buttonstyle.css" rel="stylesheet"/>
     <title>Szűrés</title>
-    <link href="style.css" rel="stylesheet"/>
+
 </head>
 <tbody>
 
@@ -22,7 +26,7 @@
 </div>
 
 <form action="filter">
-    <table class="table">
+    <table class="smallcentertable">
         <tr>
             <th>Márka</th>
             <th>Kategória</th>
@@ -55,21 +59,12 @@
     </div>
 </form>
 
-<form action="finalrent">
-    <div class="centercontext">
-        <h3>Kiválasztott járművek száma:
-        <span th:if="${session.countofcarsincart} == null" th:text="0"/>
-        <span th:text="${session.countofcarsincart}" th:unless="${session.countofcarsincart} == 0"/></h3>
-        <input class="button" type="submit" value="Véglegesítés">
-    </div>
-</form>
-
 <span th:if="${filteredcars.size == 0}">
-    <h3>Jelenleg nincs elérhető autónk!</h3>
+    <h3 class="centercontext">Jelenleg nincs elérhető autónk!</h3>
 </span>
 <span th:unless="${filteredcars.size == 0}">
 <form action="filter">
-    <table class="table">
+    <table class="fulltable">
         <tr><th>Márka</th><th>Típus</th><th>Kategória</th><th>Üzemanyag</th><th>Ár/nap</th></tr>
         <tr th:each="car: ${filteredcars}">
             <td align="center" th:text=${car.brand.name.getName}/>
@@ -87,6 +82,15 @@
     </table>
 </form>
 </span>
+
+<form action="finalrent">
+    <div class="centercontext">
+        <h3>Kiválasztott járművek száma:
+            <span th:if="${session.countofcarsincart} == null" th:text="0"/>
+            <span th:text="${session.countofcarsincart}" th:unless="${session.countofcarsincart} == 0"/></h3>
+        <input class="button" type="submit" value="Véglegesítés">
+    </div>
+</form>
 
 </tbody>
 </html>

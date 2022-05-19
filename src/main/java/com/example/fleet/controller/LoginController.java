@@ -62,7 +62,7 @@ public class LoginController {
         log.info("client logout: {id=" + clientLogined.getClient_id() +
                 ", name=" + clientLogined.getName() + "}");
 
-        return "/";
+        return "logout.html";
     }
 
     @GetMapping("/register")
@@ -94,6 +94,11 @@ public class LoginController {
     @GetMapping("/offers")
     public String offers(){
         return "offerspage.html";
+    }
+
+    @GetMapping("/toregiserpage")
+    public String toRegisterPage(){
+        return "registerpage.html";
     }
 
     @GetMapping("/main")

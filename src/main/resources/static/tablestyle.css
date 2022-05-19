@@ -1,0 +1,38 @@
+/*Fullpage table*/
+.fulltable{
+    width:80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    border:0;
+    cellpadding:1;
+    cellspacing:2;
+}
+
+.fulltable th{
+    background-color:deepskyblue;
+    color:white;
+}
+
+.fulltable td{
+    text-align:center;
+}
+
+.fulltable tr:hover{
+    background-color: #f2f2f2;
+}
+
+/*Smaller, center table*/
+.smallcentertable{
+    width:50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    text-align:center;
+}
+
+.smallcentertable td{
+    width: auto;
+}
+
+/*Form table*/

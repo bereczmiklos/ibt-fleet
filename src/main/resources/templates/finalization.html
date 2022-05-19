@@ -2,8 +2,11 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="headerstyle.css" />
+    <link rel="stylesheet" href="navigatorstyle.css" />
+    <link rel="stylesheet" href="tablestyle.css" />
+    <link rel="stylesheet" href="buttonstyle.css" />
     <title>Véglegesítés</title>
-    <link href="style.css" rel="stylesheet"/>
 </head>
 <tbody>
 <selection class="layout">
@@ -26,7 +29,7 @@
 </span>
 <span th:unless="${session.bookedcars == null}">
 <form action="rent">
-    <table class="table">
+    <table class="fulltable">
         <tr><th>Márka</th><th>Típus</th><th>Kategória</th><th>Üzemanyag</th><th>Ár</th></tr>
         <tr th:each="car: ${session.bookedcars}">
             <td align="center" th:text=${car.brand.name.getName}/>
